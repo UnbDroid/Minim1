@@ -1,25 +1,32 @@
-#define M1PWM 3
-#define M1INA 30
-#define M1INB 31
-#define M1EN 22
+#define MD 3
+#define MDINA 30
+#define MDINB 31
+#define MDEN 22
 
-#define M2PWM 4
-#define M2INA 46
-#define M2INB 47
-#define M2EN 52
 
-#define kp = 0;
-#define ki = 0;
-#define kd = 0;
+#define ME 4
+#define MEINA 46
+#define MEINB 47
+#define MEEN 52
 
-#define esq = A1;
-#define dir = A0;
+#define LED_dir 50
+#define LED_esq 51
+
+#define kp 0.5
+#define ki 0
+#define kd 0
+
+#define LDR_esq A1
+#define LDR_dir A0
+
+#define BRANCO 0
+#define PRETO 6
 
 // PID Motores
 int erro_total = 0;
 int erro_ant = 0;
-int pot_motor_esq = 150;
-int pot_motor_dir = 150;
+int pot_motor_esq = 80;
+int pot_motor_dir = 80;
 
 // Leitura LDR
 int leitura_max = 0;
@@ -87,13 +94,14 @@ int media_vetor(int direcao){
 
 void le_ldr(){
 
-  vetor_leituras_esquerda[contador] = analogRead(esq);
-  vetor_leituras_direita[contador] = analogRead(dir);
+  vetor_leituras_esquerda[contador] = analogRead(LDR_esq);
+  vetor_leituras_direita[contador] = analogRead(LDR_dir);
+
   contador++;
 
   while(validacao == 0 && contador<5){
-    vetor_leituras_esquerda[contador] = analogRead(esq);
-    vetor_leituras_direita[contador] = analogRead(dir);
+    vetor_leituras_esquerda[contador] = analogRead(LDR_esq);
+    vetor_leituras_direita[contador] = analogRead(LDR_dir);
     contador++;
   }
   validacao = 1;
@@ -107,11 +115,27 @@ void le_ldr(){
 void segue_linha(){
   int p, i, d;
   int erro_atual = 0;
+  int leitura_dir = 0, leitura_esq = 0;
 
   le_ldr();
 
   leitura_esq = media_vetor(1);
   leitura_dir = media_vetor(0);
+
+  // Media do esquerdo: 237
+  // Media do direito: 180
+
+  if(leitura_esq > 237){
+    leitura_esq = PRETO;
+  }else{
+    leitura_esq = BRANCO;
+  }
+
+  if(leitura_dir > 180){
+    leitura_dir = PRETO;
+  }else{
+    leitura_dir = BRANCO;
+  }
 
   erro_atual = leitura_esq - leitura_dir;
   erro_total += erro_atual;
@@ -140,8 +164,8 @@ void segue_linha(){
     pot_motor_dir = 30;
   }
 
-  analogWrite(M1PWM, pot_motor_dir);
-  analogWrite(M2PWM, pot_motor_esq);
+  analogWrite(MD, pot_motor_dir);
+  analogWrite(ME, pot_motor_esq);
 
    // branco < preto
 }
@@ -153,65 +177,39 @@ void segue_linha(){
 void setup(){
 
   Serial.begin(9600);
-  pinMode(A0, INPUT);
-  pinMode(A1, INPUT);
-  pinMode(50, OUTPUT);
-  pinMode(51, OUTPUT);
+  pinMode(LDR_dir, INPUT);
+  pinMode(LDR_esq, INPUT);
+  pinMode(LED_dir, OUTPUT);
+  pinMode(LED_esq, OUTPUT);
 
-  pinMode(M1PWM , INPUT);
-  pinMode(M1INA, INPUT);
-  pinMode(M1INB, INPUT);
-  pinMode(M1EN , INPUT);
+  pinMode(MD , INPUT);
+  pinMode(MDINA, INPUT);
+  pinMode(MDINB, INPUT);
+  pinMode(MDEN , INPUT);
 
-  pinMode(M2PWM , INPUT);
-  pinMode(M2INA, INPUT);
-  pinMode(M2INB, INPUT);
-  pinMode(M2EN , INPUT);
+  pinMode(ME , INPUT);
+  pinMode(MEINA, INPUT);
+  pinMode(MEINB, INPUT);
+  pinMode(MEEN , INPUT);
 
-  digitalWrite(M1EN, HIGH);
-  digitalWrite(M2EN, HIGH);
+  digitalWrite(LED_dir, HIGH);
+  digitalWrite(LED_esq, HIGH);
 
-  digitalWrite(M1INA, HIGH);
-  digitalWrite(M1INB, LOW);
-  digitalWrite(M2INA, HIGH);
-  digitalWrite(M2INB, LOW);
+  digitalWrite(MDEN, HIGH);
+  digitalWrite(MEEN, HIGH);
+
+  digitalWrite(MDINA, HIGH);
+  digitalWrite(MDINB, LOW);
+  digitalWrite(MEINA, LOW);
+  digitalWrite(MEINB, HIGH);
   // put your setup code here, to run once:
 
 
 }
 
 void loop() {
-
-
- digitalWrite(M1EN, HIGH);
- digitalWrite(M2EN, HIGH);
-
-
- digitalWrite(M1INA, HIGH);
- digitalWrite(M1INB, LOW);
- analogWrite(M1PWM, pot_motor_dir);
- digitalWrite(M2INA, HIGH);
- digitalWrite(M2INB, LOW);
- analogWrite(M2PWM, pot_motor_esq);
- delay(1000);
-
- // Para motores
-
- digitalWrite(M1INA, HIGH);
- digitalWrite(M1INB, HIGH);
- digitalWrite(M2INA, HIGH);
- digitalWrite(M2INB, HIGH);
- delay(1000);
-
- // Gira outro lado
-
- digitalWrite(M1INA, LOW);
- digitalWrite(M1INB, HIGH);
- analogWrite(M1PWM, 150);
- digitalWrite(M2INA, LOW);
- digitalWrite(M2INB, HIGH);
- analogWrite(M2PWM, 150);
- delay(1000);
+  analogWrite(MD, pot_motor_dir);
+  analogWrite(ME, pot_motor_esq);
  // put your main code here, to run repeatedly:
 
 }
