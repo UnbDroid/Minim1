@@ -9,6 +9,9 @@ void setup(){
   pinMode(LDR_dir, INPUT);
   pinMode(LED_dir, OUTPUT);
   pinMode(LED_esq, OUTPUT);
+  digitalWrite(LED_esq, HIGH);
+  digitalWrite(LED_dir, HIGH);
+  delay(500);
 
   analogRead(LDR_esq);
   analogRead(LDR_dir);
@@ -24,8 +27,7 @@ int min_dir = 1110;
 
 void loop(){
   int ldr_esq, ldr_dir;
-  digitalWrite(LED_esq, HIGH);
-  digitalWrite(LED_dir, HIGH);
+  
   ldr_esq = analogRead(LDR_esq);
   ldr_dir = analogRead(LDR_dir);
 
