@@ -9,8 +9,8 @@
 #define MEINB 47
 #define MEEN 52
 
-#define POT_MIN_MOTOR 40
-#define POT_MAX_MOTOR 60
+#define POT_MIN_MOTOR 65
+#define POT_MAX_MOTOR 55
 #define POT_MED_MOTOR 50
 
 #define LED_dir 50
@@ -46,6 +46,8 @@ int iteracoes = 5;
 int vetor_leituras_esquerda[5];
 int vetor_leituras_direita[5];
 int validacao = 0;
+int leitura_dir = 0;
+int leitura_esq = 0;
 
 int media_vetor(int direcao){
   int i=0, pos_min, pos_max;
@@ -121,11 +123,61 @@ void le_ldr(){
   }
 }
 
+void atualiza_ldr()
+{
+    le_ldr();
+
+  leitura_esq = media_vetor(1);
+  leitura_dir = media_vetor(0);
+
+  // Media do esquerdo: 147
+  // Media do direito: 180
+
+  if(leitura_esq > MED_ESQ){
+    leitura_esq = PRETO;
+  }else{
+    leitura_esq = BRANCO;
+  }
+
+  if(leitura_dir > MED_DIR){
+    leitura_dir = PRETO;
+  }else{
+    leitura_dir = BRANCO;
+  }
+}
+
+void alinhar()
+{
+    digitalWrite(MEINA, HIGH);
+    digitalWrite(MEINB, LOW);
+    digitalWrite(MDINA, HIGH);
+    digitalWrite(MDINB, LOW);
+    atualiza_ldr();
+    while(leitura_esq == PRETO)
+    {
+        analogWrite(MD, 0);
+        analogWrite(ME, POT_MIN_MOTOR);
+        atualiza_ldr();
+    }
+    digitalWrite(MDINA, LOW);
+    digitalWrite(MDINB, HIGH);
+    digitalWrite(MEINA, LOW);
+    digitalWrite(MEINB, HIGH); 
+    while(leitura_dir == PRETO)
+    {
+        analogWrite(MD, POT_MIN_MOTOR);
+        analogWrite(ME, 0);
+        atualiza_ldr();
+    }
+    analogWrite(MD, 0);
+    analogWrite(ME, 0);
+
+}
+
 
 void segue_linha(){
   int p, i, d;
   int erro_atual = 0;
-  int leitura_dir = 0, leitura_esq = 0;
 
   le_ldr();
 
@@ -149,6 +201,11 @@ void segue_linha(){
 
   if(leitura_dir == leitura_esq)
   {
+    if(leitura_dir == PRETO)
+    {
+        alinhar();
+        delay(2000);
+    }
     digitalWrite(MDINA, HIGH);
     digitalWrite(MDINB, LOW);
     digitalWrite(MEINA, LOW);
