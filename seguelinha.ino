@@ -9,10 +9,12 @@
 #define MEINB 47
 #define MEEN 52
 
+#define POT_MIN_MOTOR 30
+
 #define LED_dir 50
 #define LED_esq 51
 
-#define kp 0.5
+#define kp 0.35
 #define ki 0
 #define kd 0
 
@@ -21,12 +23,18 @@
 
 #define BRANCO 0
 #define PRETO 6
+#define min_esq  134
+#define min_dir 117
+#define max_esq 258
+#define max_dir 215
+#define MED_ESQ (min_esq+max_esq)/2
+#define MED_DIR (min_dir+max_dir)/2
 
 // PID Motores
 int erro_total = 0;
 int erro_ant = 0;
-int pot_motor_esq = 80;
-int pot_motor_dir = 80;
+int pot_motor_esq = 30;
+int pot_motor_dir = 30;
 
 // Leitura LDR
 int leitura_max = 0;
@@ -99,12 +107,12 @@ void le_ldr(){
 
   contador++;
 
-  while(validacao == 0 && contador<5){
+  while(contador<5){
     vetor_leituras_esquerda[contador] = analogRead(LDR_esq);
     vetor_leituras_direita[contador] = analogRead(LDR_dir);
     contador++;
   }
-  validacao = 1;
+
 
   if(contador == 5){
     contador = 0;
@@ -122,22 +130,22 @@ void segue_linha(){
   leitura_esq = media_vetor(1);
   leitura_dir = media_vetor(0);
 
-  // Media do esquerdo: 237
+  // Media do esquerdo: 147
   // Media do direito: 180
 
-  if(leitura_esq > 237){
+  if(leitura_esq > MED_ESQ){
     leitura_esq = PRETO;
   }else{
     leitura_esq = BRANCO;
   }
 
-  if(leitura_dir > 180){
+  if(leitura_dir > MED_DIR){
     leitura_dir = PRETO;
   }else{
     leitura_dir = BRANCO;
   }
 
-  erro_atual = leitura_esq - leitura_dir;
+  erro_atual = -leitura_esq + leitura_dir;
   erro_total += erro_atual;
 
   p = erro_atual;
@@ -146,22 +154,26 @@ void segue_linha(){
 
   erro_ant = erro_atual;
 
-  pot_motor_esq -=  (kp*p + ki*i + kd*d);
-  pot_motor_dir +=  (kp*p + ki*i + kd*d);
+  pot_motor_esq -=  (kp*p + ki*i + kd*d)/4;
+  pot_motor_dir +=  (kp*p + ki*i + kd*d)/4;
+  Serial.print("Motor esq: ");
+  Serial.println(pot_motor_esq);
+  Serial.print("Motor dir: ");
+  Serial.println(pot_motor_dir);
 
-  if(pot_motor_esq > 220){
-    pot_motor_esq = 220;
+  if(pot_motor_esq > 150){
+    pot_motor_esq = 150;
   }
 
-  if(pot_motor_dir > 220){
-    pot_motor_dir = 220;
+  if(pot_motor_dir > 150){
+    pot_motor_dir = 150;
   }
-  if(pot_motor_esq < 30){
-    pot_motor_esq = 30;
+  if(pot_motor_esq < POT_MIN_MOTOR){
+    pot_motor_esq = POT_MIN_MOTOR;
   }
 
-  if(pot_motor_dir < 30){
-    pot_motor_dir = 30;
+  if(pot_motor_dir < POT_MIN_MOTOR){
+    pot_motor_dir = POT_MIN_MOTOR;
   }
 
   analogWrite(MD, pot_motor_dir);
@@ -202,14 +214,16 @@ void setup(){
   digitalWrite(MDINB, LOW);
   digitalWrite(MEINA, LOW);
   digitalWrite(MEINB, HIGH);
+  delay(5000);
   // put your setup code here, to run once:
 
 
 }
 
 void loop() {
-  analogWrite(MD, pot_motor_dir);
-  analogWrite(ME, pot_motor_esq);
+
+
+  segue_linha();
  // put your main code here, to run repeatedly:
 
 }
