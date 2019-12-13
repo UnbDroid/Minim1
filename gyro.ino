@@ -8,8 +8,8 @@
 #define MEINB 47
 #define MEEN 52
 
-int pot_motor_esq = 80;
-int pot_motor_dir = 80;
+int pot_motor_esq = 60;
+int pot_motor_dir = 60;
 
 /*------------------------------------------ Gyroscope Functions ---------------------------------------------*/
 
@@ -51,8 +51,8 @@ void StartGyro() {
 }
 
 void setup() {
-
-  Serial.begin(115200);
+  delay(5000);
+  Serial.begin(9600);
   while(!Serial);
   StartGyro();
 }
@@ -71,36 +71,31 @@ void loop() {
     now = millis();
     if(now - last_update > 20){
       UpdateGyro();
-      Serial.print("Z = ");
-      Serial.println(degreeZ);
+//      Serial.print("Z = ");
+//      Serial.println(degreeZ);
       last_update = now;
       analogWrite(MD, pot_motor_dir);
       analogWrite(ME, pot_motor_esq);
     }
+
   }
-  digitalWrite(MEINA, HIGH);
-  digitalWrite(MEINB, LOW);
 
-  digitalWrite(MDINA, HIGH);
-  digitalWrite(MDINB, LOW);
+  digitalWrite(MEINA, LOW);
+  digitalWrite(MEINB, HIGH);
 
-  while(degreeZ > 0){
+  digitalWrite(MDINA, LOW);
+  digitalWrite(MDINB, HIGH);
+
+  while(degreeZ >= 0){
     now = millis();
     if(now - last_update > 20){
       UpdateGyro();
-      Serial.print("Z = ");
-      Serial.println(degreeZ);
+//      Serial.print("Z = ");
+//      Serial.println(degreeZ);
       last_update = now;
       analogWrite(MD, pot_motor_dir);
       analogWrite(ME, pot_motor_esq);
     }
   }
-
-  digitalWrite(MEINA, HIGH);
-  digitalWrite(MEINB, LOW);
-
-  digitalWrite(MDINA, HIGH);
-  digitalWrite(MDINB, LOW);
-  delay(2000);
 
 }
