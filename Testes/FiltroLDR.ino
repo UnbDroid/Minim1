@@ -2,7 +2,7 @@
 // Min: 78; Max: 186; Media: 132
 
 // Sensor de luz novo
-// Min: ; Max: ; Media:
+// Min: ; Max: ; Media: 
 
 int leitura_max = 0;
 int leitura_min = 1000;
@@ -30,14 +30,14 @@ int media_vetor(){
   if(pos_min == pos_max){
     pos_max++;
   }
-
+  
   vetor_leituras[pos_min] = 0;
   vetor_leituras[pos_max] = 0;
 
   for(i=0; i<iteracoes; i++){
     total += vetor_leituras[i];
   }
-
+  
   return total/(iteracoes-2);
 }
 

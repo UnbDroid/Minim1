@@ -123,8 +123,7 @@ void le_ldr(){
   }
 }
 
-void atualiza_ldr()
-{
+void atualiza_ldr(){
     le_ldr();
 
   leitura_esq = media_vetor(1);
@@ -146,8 +145,7 @@ void atualiza_ldr()
   }
 }
 
-void alinhar()
-{
+void alinhar(){
     digitalWrite(MEINA, HIGH);
     digitalWrite(MEINB, LOW);
     digitalWrite(MDINA, HIGH);
@@ -162,7 +160,7 @@ void alinhar()
     digitalWrite(MDINA, LOW);
     digitalWrite(MDINB, HIGH);
     digitalWrite(MEINA, LOW);
-    digitalWrite(MEINB, HIGH); 
+    digitalWrite(MEINB, HIGH);
     while(leitura_dir == PRETO)
     {
         analogWrite(MD, POT_MIN_MOTOR);
@@ -173,7 +171,6 @@ void alinhar()
     analogWrite(ME, 0);
 
 }
-
 
 void segue_linha(){
   int p, i, d;
@@ -217,7 +214,7 @@ void segue_linha(){
         digitalWrite(MDINA, LOW);
         digitalWrite(MDINB, HIGH);
       digitalWrite(MEINA, LOW);
-    digitalWrite(MEINB, HIGH);  
+    digitalWrite(MEINB, HIGH);
       pot_motor_esq = POT_MAX_MOTOR;
       pot_motor_dir = POT_MIN_MOTOR;
   } else if(leitura_esq > leitura_dir)
@@ -235,10 +232,6 @@ void segue_linha(){
 
    // branco < preto
 }
-
-
-
-
 
 void setup(){
 
