@@ -1,11 +1,11 @@
 #include "MPU9250.h"
 
-#define MD 3
+#define MD 4
 #define MDINA 30
 #define MDINB 31
 #define MDEN 22
 
-#define ME 4
+#define ME 5
 #define MEINA 46
 #define MEINB 47
 #define MEEN 52
