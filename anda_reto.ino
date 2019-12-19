@@ -1,5 +1,5 @@
-#include "MPU9250.h"
-#include <NewPing.h>
+// #include "MPU9250.h"
+// #include <NewPing.h>
 
 #define MD 4
 #define MDINA 30
@@ -39,7 +39,7 @@
 #define Turn_Tension 3
 #define DIST_OBJ 15
 
-#define kp 0
+#define kp 0.001
 #define ki 0
 #define kd 0
 
@@ -48,8 +48,8 @@
 #define frente 2
 #define tras 3
 
-NewPing usFront(TRIGGER_PIN, US_FRONT, MAX_DISTANCE);
-NewPing usSide(TRIGGER_PIN, US_SIDE, MAX_DISTANCE);
+// NewPing usFront(TRIGGER_PIN, US_FRONT, MAX_DISTANCE);
+// NewPing usSide(TRIGGER_PIN, US_SIDE, MAX_DISTANCE);
 
 // PID Motores
 int p = 0;
@@ -58,8 +58,8 @@ int d = 0;
 int erro_atual = 0;
 int erro_total = 0;
 int erro_ant = 0;
-int pot_motor_esq = 30;
-int pot_motor_dir = 30;
+int pot_motor_esq = 80;
+int pot_motor_dir = 80;
 int encoder_d = 0;
 int encoder_e = 0;
 
@@ -75,9 +75,15 @@ int leitura_dir = 0;
 int leitura_esq = 0;
 
 // An MPU9250 object with the MPU-9250 sensor on I2C bus 0 with address 0x68
-MPU9250 gyro(Wire,0x68);
-int status;
-float degreeZ = 0;
+// MPU9250 gyro(Wire,0x68);
+// int status;
+// float degreeZ = 0;
+
+void movimento(int direcao);
+void trava_motores(int trava);
+void anda_reto();
+void acresce_encoder_e();
+void acresce_encoder_d();
 
 void movimento(int direcao){
   switch(direcao){
@@ -129,26 +135,55 @@ void anda_reto(){
   analogWrite(MD, pot_motor_dir);
   analogWrite(ME, pot_motor_esq);
 
-  erro_atual = encoder_d - encoder_e;
+  // detachInterrupt(digitalPinToInterrupt(ENCODER_E));
+  // detachInterrupt(digitalPinToInterrupt(ENCODER_D));
+
+  erro_atual = (encoder_d - encoder_e);
   erro_total += erro_atual;
 
-  detachInterrupt(digitalPinToInterrupt(ENCODER_E));
-  detachInterrupt(digitalPinToInterrupt(ENCODER_D));
 
   p = erro_atual;
   i = erro_total;
   d = erro_atual - erro_ant;
 
-  pot_motor_dir = pot_motor_dir - (kp*p + ki*i + kd*d);
-  pot_motor_esq = pot_motor_esq + (kp*p + ki*i + kd*d);
+  pot_motor_dir = pot_motor_dir - ((kp*p) + (ki*i) + (kd*d));
+  pot_motor_esq = pot_motor_esq + ((kp*p) + (ki*i) + (kd*d));
+
+  if(pot_motor_dir > 130){
+    pot_motor_dir = 130;
+  }else if(pot_motor_dir < 30){
+    pot_motor_dir = 30;
+  }
+
+  if(pot_motor_esq > 130){
+    pot_motor_esq = 130;
+  }else if(pot_motor_esq < 30){
+    pot_motor_esq = 30;
+  }
 
   erro_ant = erro_atual;
 
-  attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
+  Serial.print("Direita: ");
+  Serial.println(encoder_d);
+  //
+  Serial.print("Esquerda: ");
+  Serial.println(encoder_e);
 
-  encoder_d = 0;
-  encoder_e = 0;
+  Serial.print("P: ");
+  Serial.println(p);
+  Serial.print("Erro atual: ");
+  Serial.println(erro_atual);
+
+  Serial.print("Motor direita: ");
+  Serial.println(pot_motor_dir);
+  Serial.print("Motor esquerda: ");
+  Serial.println(pot_motor_esq);
+
+  Serial.println("----------------------------------------------------------------------------------------------------");
+
+
+ // attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
+ // attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
 
 }
 
@@ -178,12 +213,13 @@ void setup() {
 
   movimento(frente);
 
-  attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
 
   Serial.begin(9600);
 }
 
 void loop() {
-
+  anda_reto();
+  delay(400);
 }
