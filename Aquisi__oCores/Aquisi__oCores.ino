@@ -5,9 +5,9 @@
 #define ColorOut 42
 
 // Código pra atribuir os valores das frquencias maximas e minimas de verde, vermelho e azul
-// Vermelho: 217/31
-// Verde: 240/23
-// Azul: 255/48
+// Vermelho: 217/29
+// Verde: 285/29
+// Azul: 245/24
 
 int freq = 0;
 int green_freqMax = 0;
