@@ -39,7 +39,7 @@
 #define Turn_Tension 3
 #define DIST_OBJ 15
 
-#define kp 0.001
+#define kp 0.00005
 #define ki 0
 #define kd 0
 
@@ -58,8 +58,8 @@ int d = 0;
 int erro_atual = 0;
 int erro_total = 0;
 int erro_ant = 0;
-int pot_motor_esq = 80;
-int pot_motor_dir = 80;
+int pot_motor_esq = 60;
+int pot_motor_dir = 60;
 int encoder_d = 0;
 int encoder_e = 0;
 
@@ -134,7 +134,7 @@ void anda_reto(){
 
   analogWrite(MD, pot_motor_dir);
   analogWrite(ME, pot_motor_esq);
-
+  //
   // detachInterrupt(digitalPinToInterrupt(ENCODER_E));
   // detachInterrupt(digitalPinToInterrupt(ENCODER_D));
 
@@ -181,7 +181,7 @@ void anda_reto(){
 
   Serial.println("----------------------------------------------------------------------------------------------------");
 
-
+//
  // attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
  // attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
 
