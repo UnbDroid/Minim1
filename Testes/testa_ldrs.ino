@@ -24,9 +24,9 @@ void loop(){
   ldr_esq = analogRead(LDR_esq);
   ldr_dir = analogRead(LDR_dir);
 
-  Serial.print("LDR ESQUERDA : ")
+  Serial.print("LDR ESQUERDA : ");
   Serial.println(ldr_esq);
-  Serial.print("LDR DIREITA : ")
+  Serial.print("LDR DIREITA : ");
   Serial.println(ldr_dir);
   delay(500);
 
