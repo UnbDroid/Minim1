@@ -1,7 +1,7 @@
-#define LED_esq 50
-#define LED_dir 51
-#define LDR_esq A0
-#define LDR_dir A1
+#define LED_dir 50
+#define LED_esq 51
+#define LDR_dir A0
+#define LDR_esq A1
 
 void setup(){
   Serial.begin(9600);
@@ -25,8 +25,8 @@ void loop(){
   ldr_dir = analogRead(LDR_dir);
 
   Serial.print("LDR ESQUERDA : ");
-  Serial.println(ldr_esq);
-  Serial.print("LDR DIREITA : ");
+  Serial.print(ldr_esq);
+  Serial.print(" || LDR DIREITA : ");
   Serial.println(ldr_dir);
   delay(500);
 
