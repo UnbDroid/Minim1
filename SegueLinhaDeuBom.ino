@@ -19,15 +19,15 @@
 #define ki 0
 #define kd 0
 
-#define LDR_esq A1
-#define LDR_dir A0
+#define LDR_dir A2
+#define LDR_esq A6
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 168
-#define max_esq 285
-#define min_dir 125
-#define max_dir 140
+#define min_esq 92
+#define max_esq 300
+#define min_dir 97
+#define max_dir 310
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 

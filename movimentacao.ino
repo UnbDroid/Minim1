@@ -15,19 +15,20 @@
 
 #define LED_dir 50
 #define LED_esq 51
-#define LDR_esq A1
-#define LDR_dir A0
+#define LDR_dir A2
+#define LDR_esq A6
 
-#define POT_MIN_MOTOR 35
+#define POT_MIN_MOTOR 40
 #define POT_MAX_MOTOR 50
-#define POT_MED_MOTOR 40
+#define POT_MED_MOTOR_ESQ 35
+#define POT_MED_MOTOR_DIR 40
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 167
-#define max_esq 257
-#define min_dir 109
-#define max_dir 252
+#define min_esq 92
+#define max_esq 300
+#define min_dir 97
+#define max_dir 310
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -37,7 +38,8 @@
 #define MAX_DISTANCE 200
 #define TIME_STEP 20
 #define Turn_Tension 3
-#define DIST_OBJ 15
+#define DIST_OBJ 13
+#define DIST_OBJ_LATERAL 17
 
 #define kp 0.00005
 #define ki 0
@@ -58,8 +60,8 @@ int d = 0;
 int erro_atual = 0;
 int erro_total = 0;
 int erro_ant = 0;
-int pot_motor_esq = 40;
-int pot_motor_dir = 60;
+int pot_motor_esq = 45;
+int pot_motor_dir = 55;
 int encoder_d = 0;
 int encoder_e = 0;
 
@@ -262,7 +264,6 @@ void StartGyro() {
 }
 
 void segue_linha(){
-
   le_ldr();
 
   leitura_esq = media_vetor(1);
@@ -289,28 +290,24 @@ void segue_linha(){
     {
         alinhar();
     }
-    digitalWrite(MEINA, LOW);
-    digitalWrite(MEINB, HIGH);
-    digitalWrite(MDINA, HIGH);
-    digitalWrite(MDINB, LOW);
-    pot_motor_dir = POT_MED_MOTOR;
-    pot_motor_esq = POT_MED_MOTOR;
+      movimento(frente);
+      pot_motor_dir = POT_MED_MOTOR_DIR;
+      pot_motor_esq = POT_MED_MOTOR_ESQ;
   } else if(leitura_dir > leitura_esq)
   {
-    movimento(direita);
-    pot_motor_esq = POT_MAX_MOTOR;
-    pot_motor_dir = POT_MIN_MOTOR;
+      movimento(direita);
+      pot_motor_esq = POT_MAX_MOTOR;
+      pot_motor_dir = POT_MIN_MOTOR;
   } else if(leitura_esq > leitura_dir)
   {
-    movimento(esquerda);
-    pot_motor_dir = POT_MAX_MOTOR;
-    pot_motor_esq = POT_MIN_MOTOR;
+      movimento(esquerda);
+      pot_motor_dir = POT_MAX_MOTOR;
+      pot_motor_esq = POT_MIN_MOTOR;
   }
 
   analogWrite(MD, pot_motor_dir);
   analogWrite(ME, pot_motor_esq);
 
-   // branco < preto
 }
 
 void anda_reto(){
@@ -318,8 +315,12 @@ void anda_reto(){
   analogWrite(MD, pot_motor_dir);
   analogWrite(ME, pot_motor_esq);
 
+  // detachInterrupt(digitalPinToInterrupt(ENCODER_E));
+  // detachInterrupt(digitalPinToInterrupt(ENCODER_D));
+
   erro_atual = (encoder_d - encoder_e);
   erro_total += erro_atual;
+
 
   p = erro_atual;
   i = erro_total;
@@ -341,25 +342,6 @@ void anda_reto(){
   }
 
   erro_ant = erro_atual;
-
-  // Serial.print("Direita: ");
-  // Serial.println(encoder_d);
-  //
-  // Serial.print("Esquerda: ");
-  // Serial.println(encoder_e);
-  //
-  // Serial.print("P: ");
-  // Serial.println(p);
-  // Serial.print("Erro atual: ");
-  // Serial.println(erro_atual);
-  //
-  // Serial.print("Motor direita: ");
-  // Serial.println(pot_motor_dir);
-  // Serial.print("Motor esquerda: ");
-  // Serial.println(pot_motor_esq);
-  //
-  // Serial.println("----------------------------------------------------------------------------------------------------");
-
 }
 
 void acresce_encoder_d(){
@@ -368,6 +350,76 @@ void acresce_encoder_d(){
 
 void acresce_encoder_e(){
   encoder_e++;
+}
+
+void gira(int angulo){
+  unsigned long now,last_update = 0;
+  int angulo_atual;
+
+  if(angulo > 0){
+    movimento(esquerda);
+
+  }else{
+    digitalWrite(MEINA, LOW);
+    digitalWrite(MEINB, HIGH);
+
+    digitalWrite(MDINA, LOW);
+    digitalWrite(MDINB, HIGH);
+  }
+
+  angulo_atual = degreeZ;
+
+  while(abs(degreeZ - angulo_atual) < abs(angulo)){
+    now = millis();
+    if(now - last_update > 20){
+      UpdateGyro();
+      last_update = now;
+      analogWrite(MD, 40);
+      analogWrite(ME, 40);
+      Serial.println(abs(degreeZ - angulo_atual));
+    }
+  }
+
+  trava_motores(1);
+}
+
+void desvia(){
+  gira(90);
+
+  attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
+  pot_motor_dir = 60;
+  pot_motor_esq = 60;
+
+  while(usSide.ping_median(5) > DIST_OBJ_LATERAL){
+    Serial.println("ENTREI 1");
+    anda_reto();
+  }
+
+  while(usSide.ping_median(5) < DIST_OBJ_LATERAL){
+    Serial.println("ENTREI 2");
+    anda_reto();
+  }
+
+  gira(-90);
+
+  encoder_e = 0;
+  encoder_d = 0;
+
+  while(usSide.ping_median(5) > DIST_OBJ_LATERAL){
+    Serial.println("ENTREI 3");
+    anda_reto();
+  }
+
+  while(usSide.ping_median(5) < DIST_OBJ_LATERAL){
+    anda_reto();
+  }
+
+  gira(-90);
+
+  encoder_e = 0;
+  encoder_d = 0;
+
 }
 
 void setup() {
@@ -399,9 +451,6 @@ void setup() {
   digitalWrite(MEINA, LOW);
   digitalWrite(MEINB, HIGH);
 
-  attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
-
   Serial.begin(9600);
   while(!Serial);
   StartGyro();
@@ -409,4 +458,8 @@ void setup() {
 
 void loop() {
   segue_linha();
+  if(usFront.convert_cm(usFront.ping_median(5)) < DIST_OBJ){
+    Serial.println("ACHEI");
+    desvia();
+  }
 }

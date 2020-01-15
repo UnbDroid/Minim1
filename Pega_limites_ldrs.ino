@@ -1,7 +1,7 @@
-#define LED_esq 50
-#define LED_dir 51
-#define LDR_esq A0
-#define LDR_dir A1
+#define LED_dir 50
+#define LED_esq 51
+#define LDR_dir A2
+#define LDR_esq A6
 
 void setup(){
   Serial.begin(9600);
@@ -18,6 +18,9 @@ void setup(){
 
   analogRead(LDR_esq);
   analogRead(LDR_dir);
+
+  analogRead(LDR_esq);
+  analogRead(LDR_dir);
 }
 
 int max_dir = 0;
@@ -27,7 +30,7 @@ int min_dir = 1110;
 
 void loop(){
   int ldr_esq, ldr_dir;
-  
+
   ldr_esq = analogRead(LDR_esq);
   ldr_dir = analogRead(LDR_dir);
 

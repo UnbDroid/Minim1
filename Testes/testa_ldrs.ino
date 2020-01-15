@@ -1,7 +1,7 @@
 #define LED_dir 50
 #define LED_esq 51
-#define LDR_dir A0
-#define LDR_esq A1
+#define LDR_dir A2
+#define LDR_esq A6
 
 void setup(){
   Serial.begin(9600);
@@ -10,13 +10,19 @@ void setup(){
   pinMode(LED_dir, OUTPUT);
   pinMode(LED_esq, OUTPUT);
 
+
+
+  digitalWrite(LED_esq, HIGH);
+  digitalWrite(LED_dir, HIGH);
+
   analogRead(LDR_esq);
   analogRead(LDR_dir);
 
   analogRead(LDR_esq);
   analogRead(LDR_dir);
-  digitalWrite(LED_esq, HIGH);
-  digitalWrite(LED_dir, HIGH);
+
+  analogRead(LDR_esq);
+  analogRead(LDR_dir);
 }
 
 void loop(){
