@@ -312,6 +312,8 @@ void segue_linha(){
 
 void anda_reto(){
 
+  movimento(frente);
+
   analogWrite(MD, pot_motor_dir);
   analogWrite(ME, pot_motor_esq);
 
@@ -391,13 +393,13 @@ void desvia(){
   pot_motor_dir = 60;
   pot_motor_esq = 60;
 
+  Serial.println("Procurando objeto na direita");
   while(usSide.ping_median(5) > DIST_OBJ_LATERAL){
-    Serial.println("ENTREI 1");
     anda_reto();
   }
 
+  Serial.println("Achei o objeto");
   while(usSide.ping_median(5) < DIST_OBJ_LATERAL){
-    Serial.println("ENTREI 2");
     anda_reto();
   }
 
@@ -406,11 +408,12 @@ void desvia(){
   encoder_e = 0;
   encoder_d = 0;
 
+  Serial.println("Procurando de novo");
   while(usSide.ping_median(5) > DIST_OBJ_LATERAL){
-    Serial.println("ENTREI 3");
     anda_reto();
   }
 
+  Serial.println("Achei caraio, boa porra, é isso!!!! Vamo que agora vai");
   while(usSide.ping_median(5) < DIST_OBJ_LATERAL){
     anda_reto();
   }
