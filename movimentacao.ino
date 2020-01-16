@@ -41,6 +41,8 @@
 #define DIST_OBJ 15
 #define DIST_OBJ_LATERAL 20
 
+#define BUTTON 24
+
 #define kp 0.00005
 #define ki 0
 #define kd 0
@@ -611,7 +613,6 @@ void desvia(){
 }
 
 void setup() {
-  delay(5000);
   pinMode(LDR_dir, INPUT);
   pinMode(LDR_esq, INPUT);
   pinMode(LED_dir, OUTPUT);
@@ -626,6 +627,11 @@ void setup() {
   pinMode(MEINA, INPUT);
   pinMode(MEINB, INPUT);
   pinMode(MEEN , INPUT);
+
+  pinMode(BUTTON, INPUT);
+
+  while(digitalRead(BUTTON) == 0);
+  delay(2000);
 
   digitalWrite(LED_dir, HIGH);
   digitalWrite(LED_esq, HIGH);
