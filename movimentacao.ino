@@ -25,10 +25,10 @@
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 122
-#define max_esq 240
-#define min_dir 128
-#define max_dir 250
+#define min_esq 181
+#define max_esq 356
+#define min_dir 186 
+#define max_dir 304
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -650,7 +650,7 @@ void setup() {
   Serial.println("Vamos???");
 
   while(!Serial);
-  //StartGyro();
+  StartGyro();
   Serial.println("E agora???");
 
   analogWrite(ME, 45);
