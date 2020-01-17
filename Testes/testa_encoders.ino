@@ -148,7 +148,7 @@ void setup(){
   attachInterrupt(digitalPinToInterrupt(ENCODER_E), acresce_encoder_e, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENCODER_D), acresce_encoder_d, CHANGE);
 
-  delay(2000);
+  delay(500);
   Serial.begin(9600);
 }
 
@@ -157,7 +157,8 @@ void loop(){
   Serial.print(encoder_e);
   Serial.print(" || Encoder dir: ");
   Serial.println(encoder_d);
-  delay(500);
+
+  delay(1500);
   Serial.println("Os dois indo pra frente!");
   movimento(frente);
   analogWrite(ME, 55);
@@ -169,6 +170,7 @@ void loop(){
   Serial.print(encoder_e);
   Serial.print(" || Encoder dir: ");
   Serial.println(encoder_d);
+
   delay(500);
   Serial.println("Esquerda indo pra frente e direita indo pra tras!");
   movimento(direita);
@@ -182,6 +184,7 @@ void loop(){
   Serial.print(" || Encoder dir: ");
   Serial.println(encoder_d);
   delay(500);
+
   Serial.println("Direita indo pra frente e esquerda indo pra tras!");
   movimento(esquerda);
   analogWrite(ME, 55);
@@ -194,6 +197,7 @@ void loop(){
   Serial.print(" || Encoder dir: ");
   Serial.println(encoder_d);
   delay(500);
+
   Serial.println("Os dois indo pra tras!");
   movimento(tras);
   analogWrite(ME, 55);
@@ -210,11 +214,4 @@ void loop(){
   encoder_e = 0;
   Serial.println("Encoders zerados");
   delay(500);
-  Serial.print("Encoder esq: ");
-  Serial.print(encoder_e);
-  Serial.print(" || Encoder dir: ");
-  Serial.println(encoder_d);
-
-
-
 }
