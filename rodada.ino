@@ -25,10 +25,10 @@
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 112
-#define max_esq 170
+#define min_esq 115
+#define max_esq 180
 #define min_dir 104
-#define max_dir 150
+#define max_dir 160
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -38,7 +38,7 @@
 #define MAX_DISTANCE 200
 #define TIME_STEP 20
 #define Turn_Tension 3
-#define DIST_OBJ 15
+#define DIST_OBJ 10
 #define DIST_OBJ_LATERAL 20
 
 #define BUTTON 24
@@ -83,6 +83,10 @@ int leitura_dir = 0;
 int leitura_esq = 0;
 int leitura_front = 0;
 int leitura_lat = 0;
+
+int li_preto_esq = 0;
+int li_preto_dir = 0;
+int li_preto = 0;
 
 // An MPU9250 object with the MPU-9250 sensor on I2C bus 0 with address 0x68
 MPU9250 gyro(Wire,0x68);
@@ -355,6 +359,26 @@ void StartGyro() {
 }
 
 void segue_linha(){
+
+  if(li_preto == 2){
+    if(li_preto_dir == 1){
+      movimento(frente);
+      analogWrite(ME, 45);
+      analogWrite(MD, 45);
+      delay(200);
+      gira(-60);
+    }else{
+      movimento(frente);
+      analogWrite(ME, 45);
+      analogWrite(MD, 45);
+      delay(200);
+      gira(60);
+    }
+    li_preto_esq = 0;
+    li_preto = 0;
+    li_preto_dir = 0;
+  }
+
   le_ldr();
 
   leitura_esq = media_vetor(1);
@@ -378,24 +402,44 @@ void segue_linha(){
 
   if(leitura_dir == leitura_esq)
   {
-    if(leitura_dir == PRETO)
-    {
-        alinhar();
+    if(leitura_dir == PRETO){
+        // alinhar();
+        movimento(tras);
+        analogWrite(ME, 45);
+        analogWrite(MD, 45);
+        delay(200);
+        trava_motores(1);
+        delay(200);
+    }else{
+      li_preto = 0;
+      li_preto_esq = 0;
+      li_preto_dir = 0;
     }
       movimento(frente);
       pot_motor_dir = POT_MED_MOTOR_DIR;
       pot_motor_esq = POT_MED_MOTOR_ESQ;
       analogWrite(MD, pot_motor_dir);
       analogWrite(ME, pot_motor_esq);
-  } else if(leitura_dir > leitura_esq)
-  {
+  }else if(leitura_dir > leitura_esq){
     trava_motores(1);
     delay(200);
     le_ldr();
     leitura_esq = media_vetor(1);
     leitura_dir = media_vetor(0);
     if(leitura_dir > leitura_esq){
-      gira(-5);
+      gira(-10);
+      if(li_preto_dir == 0){
+        li_preto++;
+        if(li_preto_esq == 0){
+          li_preto_dir++;
+        }
+      }
+    }else{
+      movimento(tras);
+      analogWrite(MD, 45);
+      analogWrite(ME, 40);
+      delay(200);
+      movimento(frente);
     }
 
   } else if(leitura_esq > leitura_dir)
@@ -406,7 +450,19 @@ void segue_linha(){
     leitura_esq = media_vetor(1);
     leitura_dir = media_vetor(0);
     if(leitura_esq > leitura_dir){
-      gira(5);
+      gira(10);
+      if(li_preto_esq == 0){
+        li_preto++;
+        if(li_preto_dir == 0){
+          li_preto_esq++;
+        }
+      }
+    }else{
+      movimento(tras);
+      analogWrite(MD, 45);
+      analogWrite(ME, 40);
+      delay(200);
+      movimento(frente);
     }
   }
 
@@ -491,43 +547,37 @@ void tranco(){
 }
 
 void desvia(){
-  gira(-90);
-
-  analogWrite(ME, 45);
-  analogWrite(MD, 50);
-  delay(1000);
-
-  trava_motores(1);
-  delay(200);
-
-  gira(-90);
-
-  movimento(tras);
-
-  while(leitura_lat > DIST_OBJ_LATERAL){
-    le_ultra();
-    leitura_front = media_vetor(4);
-    leitura_lat = media_vetor(5);
-    analogWrite(ME, 45);
-    analogWrite(MD, 50);
-  }
-
-  while(leitura_lat < DIST_OBJ_LATERAL){
-    le_ultra();
-    leitura_front = media_vetor(4);
-    leitura_lat = media_vetor(5);
-    analogWrite(ME, 45);
-    analogWrite(MD, 50);
-  }
-
-  analogWrite(ME, 45);
-  analogWrite(MD, 50);
-  delay(1000);
-
-  trava_motores(1);
-  delay(200);
+  // gira pra direita
 
   gira(-80);
+
+  trava_motores(1);
+  delay(200);
+
+  movimento(frente);
+
+  analogWrite(ME, 45);
+  analogWrite(MD, 57);
+  delay(1000);
+
+  trava_motores(1);
+  delay(200);
+
+  gira(76);
+
+  trava_motores(1);
+  delay(200);
+
+  movimento(frente);
+
+  analogWrite(ME, 45);
+  analogWrite(MD, 57);
+  delay(1700);
+
+  trava_motores(1);
+  delay(200);
+
+  gira(80);
 
   trava_motores(1);
   delay(200);
@@ -537,9 +587,34 @@ void desvia(){
 
   le_ldr();
   leitura_dir = media_vetor(direita);
-  leitura_esq = media_vetor(esquerda);
 
   Serial.println("Cade a linha preta na direita?");
+  movimento(frente);
+
+  analogWrite(ME, 45);
+  analogWrite(MD, 48);
+  delay(300);
+
+  while(leitura_dir < MED_DIR){
+    analogWrite(ME, 45);
+    analogWrite(MD, 48);
+    le_ldr();
+    leitura_dir = media_vetor(direita);
+  }
+
+  trava_motores(1);
+  delay(500);
+
+  movimento(frente);
+  analogWrite(ME, 45);
+  analogWrite(MD, 45);
+  delay(100);
+  gira(-60);
+
+
+  //------------------------------------------------------------------------------------------------------------------------------------------
+
+  //gira pra esquerda
 
   // gira(90);
   //
@@ -703,6 +778,8 @@ void loop() {
   le_ultra();
   leitura_front = media_vetor(4);
   if(leitura_front < DIST_OBJ){
+    trava_motores(1);
+    delay(1000);
     desvia();
   }
 }
