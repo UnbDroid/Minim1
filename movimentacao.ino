@@ -632,39 +632,34 @@ void setup() {
 
   while(digitalRead(BUTTON) == 0);
   Serial.begin(9600);
-  Serial.println("Acordei");
   delay(2000);
 
   digitalWrite(LED_dir, HIGH);
   digitalWrite(LED_esq, HIGH);
-  Serial.println("Olhos abertos");
 
   digitalWrite(MDEN, HIGH);
   digitalWrite(MEEN, HIGH);
-  Serial.println("Bora andar?");
 
   digitalWrite(MDINA, HIGH);
   digitalWrite(MDINB, LOW);
   digitalWrite(MEINA, LOW);
   digitalWrite(MEINB, HIGH);
-  Serial.println("Vamos???");
 
   while(!Serial);
   StartGyro();
-  Serial.println("E agora???");
 
   analogWrite(ME, 45);
   analogWrite(MD, 50);
   delay(100);
-  Serial.println("Boraaaaaaa");
 }
 
 void loop() {
-  Serial.println("Vamos caminhar");
   segue_linha();
   le_ultra();
   leitura_front = media_vetor(4);
   leitura_lat = media_vetor(5);
+  //Ate aqui funciona
+  
   if(leitura_front < DIST_OBJ){
     Serial.println("ACHEI");
     desvia();
