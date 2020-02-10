@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 #Arzena a imagem.png em img
-flag, img = cv2.imread('imagem.png')
+img = cv2.imread('imagem.png')
 
 #Gray passa a ser a imagem em escala de cinza
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -19,7 +19,7 @@ print("Numero de contornos na imagem: " + str(len(contorno)))
 cv2.imshow('Original', img)
 
 #Pinta todos os pixels admitidos como contorno
-cv2.drawContours(img, contorno, -1, (0, 0, 255), 3)
+cv2.drawContours(img, contorno, -1, (255, 0, 0), 1)
 
 #Mostra a imagem com o contorno pintado
 cv2.imshow('Contorno', img)

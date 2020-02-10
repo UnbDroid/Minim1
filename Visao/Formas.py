@@ -1,28 +1,26 @@
 import numpy as np
 import cv2
 
-#Seta a variavel video para receber dados da camera 0 (default)
 video = cv2.VideoCapture(0)
 
-#Como é video, é necessario um while true para pegar novos frames sempre
 while(True):
-
-    #flag só indica se deu certo ou nao. Img é o frame que voce recebeu da câmera
     flag, img = video.read()
 
     if(flag):
 
-        #As 3 linhas servem pra pegar o contorno
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        _, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
-        contornos, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        img_filtered = cv2.GaussianBlur(gray, (5, 5), 0)
+        img_bin = cv2.threshold(img_filtered, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        edges = cv2.Canny(img_filtered,100,200)
+
+        contornos, _ = cv2.findContours(edges.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         cv2.imshow("Original", img)
 
         #Para cada contorno checa o numero de bordas
         for contorno in contornos:
             approx = cv2.approxPolyDP(contorno, 0.01* cv2.arcLength(contorno, True), True)
-            cv2.drawContours(img, [approx], 0, (0, 0, 0), 5)
+            cv2.drawContours(img, [approx], 0, (0, 0, 0), 3)
             x = approx.ravel()[0]
             y = approx.ravel()[1] - 5
 
@@ -54,8 +52,8 @@ while(True):
                 cv2.putText(img, "Estrela", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
 
             #Se nao se encaixa em nenhum dos outros, é um circulo
-            else:
-                cv2.putText(img, "Circulo", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
+            # else:
+            #     cv2.putText(img, "Circulo", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
 
         #Cria uma janela chamada formas que tem as bordas pintadas e nomeia cada forma geometrica
         cv2.imshow("Formas", img)
@@ -64,7 +62,6 @@ while(True):
             break
 
     else:
-        print("Deu ruuuuim!")
-        cv2.waitKey(0)
+        print("Deu ruim kkkk")
 
 cv2.destroyAllWindows()
