@@ -1,20 +1,31 @@
 import numpy as np
 import cv2
 
+#vincula a webcam na posição 0 (0 por padrao) à variavel video
 video = cv2.VideoCapture(0)
 
+# Como vai ser em tempo real, é necessário um while true para pegar o máximo de frames que o clock permitir
 while(True):
+
+    #flag só indica se deu certo ou nao. Img é o frame que ele leu da webcam, ou seja, uma imagem
     flag, img = video.read()
 
     if(flag):
 
+        #Lê a mesma imagem, porem em escala de cinza
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        #Filtra a imagem, borrando ela um pouco
         img_filtered = cv2.GaussianBlur(gray, (5, 5), 0)
-        img_bin = cv2.threshold(img_filtered, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        # img_bin = cv2.threshold(img_filtered, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+
+        #Cria uma imagem 'edges' somente com as bordas das coisas
         edges = cv2.Canny(img_filtered,100,200)
 
+        #Filtra ainda mais essas bordas, e consegue o contorno das coisas
         contornos, _ = cv2.findContours(edges.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+        #Abre uma janela chamda 'Original', contendo a imagem inicial da Camera
         cv2.imshow("Original", img)
 
         #Para cada contorno checa o numero de bordas
@@ -58,10 +69,13 @@ while(True):
         #Cria uma janela chamada formas que tem as bordas pintadas e nomeia cada forma geometrica
         cv2.imshow("Formas", img)
 
+        #Se a tecla 'q' for pressionada, o programa se encerra
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+    #Se a flag for 0 ou nao existir, não foi possivel abrir a camera ou ela nao esta conectada
     else:
         print("Deu ruim kkkk")
 
+#fecha todas as janelas contendo imagens abertas
 cv2.destroyAllWindows()

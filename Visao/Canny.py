@@ -10,7 +10,6 @@ while(True):
     img_bin = cv2.threshold(img_filtered, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     edges = cv2.Canny(img_filtered,100,200)
 
-    cv2.namedWindow("Original")
     cv2.imshow("Original", img)
     cv2.imshow("Canny", edges)
 

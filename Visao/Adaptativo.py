@@ -3,9 +3,6 @@ import numpy as np
 
 video = cv2.VideoCapture(0)
 
-cv2.namedWindow("Original")
-cv2.namedWindow("Binarized")
-
 while True:
     _, img = video.read()
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -15,7 +12,7 @@ while True:
     thresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
 
     cv2.imshow("Original", img)
-    cv2.imshow("Binarized", thresh)
+    cv2.imshow("Binario", thresh)
 
     if cv2.waitKey(30) == 27:
         break
