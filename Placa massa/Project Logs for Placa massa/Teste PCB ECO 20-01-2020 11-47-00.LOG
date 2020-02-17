@@ -1,0 +1,11 @@
+Added Component: Designator=BT1(BAT-2)
+Added Component: Designator=P1(HDR1X2)
+Added Component: Designator=R1(AXIAL-0.3)
+Added Pin To Net: NetName=GND Pin=BT1-2
+Added Pin To Net: NetName=GND Pin=R1-2
+Added Net: Name=GND
+Added Pin To Net: NetName=NetP1_2 Pin=P1-2
+Added Pin To Net: NetName=NetP1_2 Pin=R1-1
+Added Net: Name=NetP1_2
+Added Class: Name=Teste
+Added Room: Name=Teste

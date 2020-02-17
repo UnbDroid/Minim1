@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=LED DO DRIVER Pin=Motor Direito-1
+Added Pin To Net: NetName=LED DO DRIVER Pin=Motor Esquerdo-2
+Added Pin To Net: NetName=NetAlimentacao Arduino_4 Pin=Alimentacao Arduino-4
+Added Pin To Net: NetName=NetAlimentacao Arduino_4 Pin=Switch do driver-2
+Added Net: Name=NetAlimentacao Arduino_4
+Added Room: Name=Potencia

@@ -1,0 +1,5 @@
+Added Component: Designator=Ressitor Driver(AXIAL-0.3)
+Added Pin To Net: NetName=NetLED driver_2 Pin=Ressitor Driver-1
+Added Pin To Net: NetName=GND1 Pin=Ressitor Driver-2
+Added Member To Class: ClassName=Potencia Member=Component Ressitor Driver Res1
+Added Room: Name=Potencia

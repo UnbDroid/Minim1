@@ -1,0 +1,52 @@
+Removed Pin From Net: NetName=VDD 3,3V Pin=Driver-10
+Removed Pin From Net: NetName=NetBateria 8V_1 Pin=Regulador de Tensão-1
+Change Component Designator: OldDesignator=Alimentação Arduino NewDesignator=Alimentacao Arduino
+Added Component: Designator=LED Arduino(HDR1X2)
+Added Component: Designator=LED bateria(HDR1X2)
+Added Component: Designator=LED driver(HDR1X2)
+Added Component: Designator=R1(AXIAL-0.3)
+Added Component: Designator=R2(AXIAL-0.3)
+Added Component: Designator=R3(AXIAL-0.3)
+Added Component: Designator=Switch da bateria(HDR1X2)
+Added Component: Designator=Switch do Arduino(HDR1X2)
+Added Component: Designator=Switch do driver(HDR1X2)
+Added Pin To Net: NetName=GND1 Pin=R1-2
+Added Pin To Net: NetName=GND1 Pin=R2-2
+Added Pin To Net: NetName=GND1 Pin=R3-2
+Added Pin To Net: NetName=NetBateria 8V_1 Pin=Switch da bateria-2
+Added Pin To Net: NetName=VDD 3,3V Pin=Switch do driver-2
+Added Pin To Net: NetName=LED DA BATERIA Pin=LED bateria-1
+Added Pin To Net: NetName=LED DA BATERIA Pin=Regulador de Tensão-1
+Added Pin To Net: NetName=LED DA BATERIA Pin=Switch da bateria-1
+Added Net: Name=LED DA BATERIA
+Added Pin To Net: NetName=LED DO ARDUINO Pin=Alimentacao Arduino-5
+Added Pin To Net: NetName=LED DO ARDUINO Pin=Botão-2
+Added Pin To Net: NetName=LED DO ARDUINO Pin=LED Arduino-1
+Added Pin To Net: NetName=LED DO ARDUINO Pin=Switch do Arduino-1
+Added Net: Name=LED DO ARDUINO
+Added Pin To Net: NetName=LED DO DRIVER Pin=Driver-10
+Added Pin To Net: NetName=LED DO DRIVER Pin=LED driver-1
+Added Pin To Net: NetName=LED DO DRIVER Pin=Switch do driver-1
+Added Net: Name=LED DO DRIVER
+Added Pin To Net: NetName=NetLED Arduino_2 Pin=LED Arduino-2
+Added Pin To Net: NetName=NetLED Arduino_2 Pin=R1-1
+Added Net: Name=NetLED Arduino_2
+Added Pin To Net: NetName=NetLED bateria_2 Pin=LED bateria-2
+Added Pin To Net: NetName=NetLED bateria_2 Pin=R2-1
+Added Net: Name=NetLED bateria_2
+Added Pin To Net: NetName=NetLED driver_2 Pin=LED driver-2
+Added Pin To Net: NetName=NetLED driver_2 Pin=R3-1
+Added Net: Name=NetLED driver_2
+Added Pin To Net: NetName=NetRegulador de Tensão_3 Pin=Regulador de Tensão-3
+Added Pin To Net: NetName=NetRegulador de Tensão_3 Pin=Switch do Arduino-2
+Added Net: Name=NetRegulador de Tensão_3
+Added Member To Class: ClassName=Potencia Member=Component LED Arduino Header 2
+Added Member To Class: ClassName=Potencia Member=Component LED bateria Header 2
+Added Member To Class: ClassName=Potencia Member=Component LED driver Header 2
+Added Member To Class: ClassName=Potencia Member=Component R1 Res1
+Added Member To Class: ClassName=Potencia Member=Component R2 Res1
+Added Member To Class: ClassName=Potencia Member=Component R3 Res1
+Added Member To Class: ClassName=Potencia Member=Component Switch da bateria Header 2
+Added Member To Class: ClassName=Potencia Member=Component Switch do Arduino Header 2
+Added Member To Class: ClassName=Potencia Member=Component Switch do driver Header 2
+Added Room: Name=Potencia

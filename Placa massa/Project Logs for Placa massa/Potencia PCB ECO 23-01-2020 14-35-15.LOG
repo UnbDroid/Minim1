@@ -1,0 +1,27 @@
+Change Component Designator: OldDesignator=Botao NewDesignator=Botão
+Change Component Designator: OldDesignator=R4 NewDesignator=Resistor
+Added Component: Designator=Raspberry(HDR1X2)
+Added Component: Designator=Slot 1(HDR1X2)
+Added Component: Designator=Slot 2(HDR1X2)
+Added Component: Designator=Slot 3(HDR1X2)
+Added Component: Designator=Slot 4(HDR1X2)
+Added Component: Designator=Slot 5(HDR1X2)
+Added Pin To Net: NetName=VCCA Pin=Raspberry-1
+Added Pin To Net: NetName=GND1 Pin=Raspberry-2
+Added Pin To Net: NetName=VCCA Pin=Slot 1-1
+Added Pin To Net: NetName=GND1 Pin=Slot 1-2
+Added Pin To Net: NetName=VCCA Pin=Slot 2-1
+Added Pin To Net: NetName=GND1 Pin=Slot 2-2
+Added Pin To Net: NetName=VCCA Pin=Slot 3-1
+Added Pin To Net: NetName=GND1 Pin=Slot 3-2
+Added Pin To Net: NetName=VCCA Pin=Slot 4-1
+Added Pin To Net: NetName=GND1 Pin=Slot 4-2
+Added Pin To Net: NetName=VCCA Pin=Slot 5-1
+Added Pin To Net: NetName=GND1 Pin=Slot 5-2
+Added Member To Class: ClassName=Potencia Member=Component Raspberry Header 2
+Added Member To Class: ClassName=Potencia Member=Component Slot 1 Header 2
+Added Member To Class: ClassName=Potencia Member=Component Slot 2 Header 2
+Added Member To Class: ClassName=Potencia Member=Component Slot 3 Header 2
+Added Member To Class: ClassName=Potencia Member=Component Slot 4 Header 2
+Added Member To Class: ClassName=Potencia Member=Component Slot 5 Header 2
+Added Room: Name=Potencia

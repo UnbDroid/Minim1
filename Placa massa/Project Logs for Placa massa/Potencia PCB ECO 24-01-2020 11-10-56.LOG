@@ -1,0 +1,18 @@
+Added Component: Designator=Capacitor 1(RAD-0.3)
+Added Component: Designator=Capacitor 2(RAD-0.3)
+Added Component: Designator=Capacitor Parrudao(RAD-0.3)
+Added Pin To Net: NetName=LED DA BATERIA Pin=Capacitor 1-1
+Added Pin To Net: NetName=GND1 Pin=Capacitor 1-2
+Added Pin To Net: NetName=GND1 Pin=Capacitor 2-2
+Added Pin To Net: NetName=LED DO ARDUINO Pin=Capacitor Parrudao-1
+Added Pin To Net: NetName=GND1 Pin=Capacitor Parrudao-2
+Change Net Name : Old Net Name=LED DA BATERIA New Net Name=CAPACITOR 1
+Change Net Name : Old Net Name=LED DO ARDUINO New Net Name=CAPACITOR PARRUDAO
+Added Pin To Net: NetName=CAPACITOR 2 Pin=Capacitor 2-1
+Added Pin To Net: NetName=CAPACITOR 2 Pin=Regulador de Tensão-3
+Added Pin To Net: NetName=CAPACITOR 2 Pin=Switch do Arduino-2
+Added Net: Name=CAPACITOR 2
+Added Member To Class: ClassName=Potencia Member=Component Capacitor 1 Cap
+Added Member To Class: ClassName=Potencia Member=Component Capacitor 2 Cap
+Added Member To Class: ClassName=Potencia Member=Component Capacitor Parrudao Cap
+Added Room: Name=Potencia

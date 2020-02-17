@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=VCCA Pin=Alimentacao Arduino-1
+Removed Pin From Net: NetName=GND1 Pin=Alimentacao Arduino-2
+Added Pin To Net: NetName=GND1 Pin=Alimentacao Arduino-1
+Added Pin To Net: NetName=VCCA Pin=Alimentacao Arduino-2
+Added Room: Name=Potencia

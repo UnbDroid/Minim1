@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=GNDLOGIC Pin=Alimentacao Arduino-2
+Removed Pin From Net: NetName=VCCA Pin=Alimentacao Arduino-3
+Change Component Designator: OldDesignator=LED battery NewDesignator=LED bateria
+Change Component Designator: OldDesignator=R3 NewDesignator=Ressitor Driver
+Change Component Designator: OldDesignator=Switch Arduino NewDesignator=Switch do Arduino
+Change Component Designator: OldDesignator=Switch battery NewDesignator=Switch da bateria
+Change Component Designator: OldDesignator=Switch driver NewDesignator=Switch do driver
+Added Pin To Net: NetName=VCCA Pin=Alimentacao Arduino-2
+Added Pin To Net: NetName=GNDLOGIC Pin=Alimentacao Arduino-3
+Added Member To Class: ClassName=Potencia Member=Component Motor Direito Header 4
+Added Member To Class: ClassName=Potencia Member=Component Motor Esquerdo Header 4
+Added Room: Name=Potencia

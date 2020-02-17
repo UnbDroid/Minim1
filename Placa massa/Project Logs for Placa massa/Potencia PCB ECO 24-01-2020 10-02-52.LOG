@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=GNDLOGIC Pin=Alimentacao Arduino-3
+Removed Pin From Net: NetName=LED DO ARDUINO Pin=Alimentacao Arduino-5
+Added Pin To Net: NetName=LED DO ARDUINO Pin=Alimentacao Arduino-3
+Added Pin To Net: NetName=GNDLOGIC Pin=Alimentacao Arduino-5
+Added Room: Name=Potencia

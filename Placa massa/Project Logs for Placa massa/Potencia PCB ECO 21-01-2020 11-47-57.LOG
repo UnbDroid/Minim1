@@ -1,0 +1,83 @@
+Removed Member From Class: ClassName=Potencia Member=PW?
+Change Component Designator: OldDesignator=BT? NewDesignator=Bateria 8V
+Added Component: Designator=Alimentação Arduino(HDR1X5)
+Added Component: Designator=Botão(HDR1X2)
+Added Component: Designator=Driver(HDR1X10)
+Added Component: Designator=Giroscópio(HDR1X2)
+Added Component: Designator=LDR Direito(HDR1X2)
+Added Component: Designator=LDR Esquerdo(HDR1X2)
+Added Component: Designator=Motor Direito(HDR1X4)
+Added Component: Designator=Motor Esquerdo(HDR1X4)
+Added Component: Designator=Regulador de Tensão(D2PAK_N)
+Added Component: Designator=Resistor(AXIAL-0.3)
+Added Component: Designator=Sensor de Cores(HDR1X2)
+Added Component: Designator=Ultrassom Frontal(HDR1X2)
+Added Component: Designator=Ultrassom Lateral(HDR1X2)
+Added Pin To Net: NetName=GND1 Pin=Alimentação Arduino-1
+Added Pin To Net: NetName=GND1 Pin=Giroscópio-2
+Added Pin To Net: NetName=GND1 Pin=LDR Direito-2
+Added Pin To Net: NetName=GND1 Pin=LDR Esquerdo-2
+Added Pin To Net: NetName=GND1 Pin=Motor Direito-2
+Added Pin To Net: NetName=GND1 Pin=Motor Esquerdo-2
+Added Pin To Net: NetName=GND1 Pin=Regulador de Tensão-2
+Added Pin To Net: NetName=GND1 Pin=Resistor-1
+Added Pin To Net: NetName=GND1 Pin=Sensor de Cores-2
+Added Pin To Net: NetName=GND1 Pin=Ultrassom Frontal-2
+Added Pin To Net: NetName=GND1 Pin=Ultrassom Lateral-2
+Added Net: Name=GND1
+Added Pin To Net: NetName=GNDLOGIC Pin=Alimentação Arduino-2
+Added Pin To Net: NetName=GNDLOGIC Pin=Driver-9
+Added Net: Name=GNDLOGIC
+Added Pin To Net: NetName=M1A Pin=Driver-8
+Added Pin To Net: NetName=M1A Pin=Motor Direito-1
+Added Net: Name=M1A
+Added Pin To Net: NetName=M1B Pin=Driver-7
+Added Pin To Net: NetName=M1B Pin=Motor Direito-4
+Added Net: Name=M1B
+Added Pin To Net: NetName=M2A Pin=Driver-2
+Added Pin To Net: NetName=M2A Pin=Motor Esquerdo-1
+Added Net: Name=M2A
+Added Pin To Net: NetName=M2B Pin=Driver-1
+Added Pin To Net: NetName=M2B Pin=Motor Esquerdo-4
+Added Net: Name=M2B
+Added Pin To Net: NetName=NetAlimentação Arduino_5 Pin=Alimentação Arduino-5
+Added Pin To Net: NetName=NetAlimentação Arduino_5 Pin=Botão-2
+Added Pin To Net: NetName=NetAlimentação Arduino_5 Pin=Regulador de Tensão-3
+Added Net: Name=NetAlimentação Arduino_5
+Added Pin To Net: NetName=NetBateria 8V_1 Pin=Bateria 8V-1
+Added Pin To Net: NetName=NetBateria 8V_1 Pin=Driver-3
+Added Pin To Net: NetName=NetBateria 8V_1 Pin=Driver-4
+Added Pin To Net: NetName=NetBateria 8V_1 Pin=Regulador de Tensão-1
+Added Net: Name=NetBateria 8V_1
+Added Pin To Net: NetName=NetBateria 8V_2 Pin=Bateria 8V-2
+Added Pin To Net: NetName=NetBateria 8V_2 Pin=Driver-5
+Added Net: Name=NetBateria 8V_2
+Added Pin To Net: NetName=NetBotão_1 Pin=Botão-1
+Added Pin To Net: NetName=NetBotão_1 Pin=Resistor-2
+Added Net: Name=NetBotão_1
+Added Pin To Net: NetName=VCCA Pin=Alimentação Arduino-3
+Added Pin To Net: NetName=VCCA Pin=Giroscópio-1
+Added Pin To Net: NetName=VCCA Pin=LDR Direito-1
+Added Pin To Net: NetName=VCCA Pin=LDR Esquerdo-1
+Added Pin To Net: NetName=VCCA Pin=Sensor de Cores-1
+Added Pin To Net: NetName=VCCA Pin=Ultrassom Frontal-1
+Added Pin To Net: NetName=VCCA Pin=Ultrassom Lateral-1
+Added Net: Name=VCCA
+Added Pin To Net: NetName=VDD 3,3V Pin=Alimentação Arduino-4
+Added Pin To Net: NetName=VDD 3,3V Pin=Driver-10
+Added Pin To Net: NetName=VDD 3,3V Pin=Motor Direito-3
+Added Pin To Net: NetName=VDD 3,3V Pin=Motor Esquerdo-3
+Added Net: Name=VDD 3,3V
+Added Member To Class: ClassName=Potencia Member=Component Alimentação Arduino Header 5
+Added Member To Class: ClassName=Potencia Member=Component Botão Header 2
+Added Member To Class: ClassName=Potencia Member=Component Driver Header 10
+Added Member To Class: ClassName=Potencia Member=Component Giroscópio Header 2
+Added Member To Class: ClassName=Potencia Member=Component LDR Direito Header 2
+Added Member To Class: ClassName=Potencia Member=Component LDR Esquerdo Header 2
+Added Member To Class: ClassName=Potencia Member=Component Motor Direito Header 4
+Added Member To Class: ClassName=Potencia Member=Component Motor Esquerdo Header 4
+Added Member To Class: ClassName=Potencia Member=Component Regulador de Tensão Volt Reg
+Added Member To Class: ClassName=Potencia Member=Component Resistor Res1
+Added Member To Class: ClassName=Potencia Member=Component Sensor de Cores Header 2
+Added Member To Class: ClassName=Potencia Member=Component Ultrassom Frontal Header 2
+Added Member To Class: ClassName=Potencia Member=Component Ultrassom Lateral Header 2

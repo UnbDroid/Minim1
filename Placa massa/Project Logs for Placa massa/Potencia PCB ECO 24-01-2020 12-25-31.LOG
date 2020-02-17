@@ -1,0 +1,31 @@
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Raspberry-1
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Slot 1-1
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Slot 2-1
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Slot 3-1
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Slot 4-1
+Removed Pin From Net: NetName=CAPACITOR PARRUDAO Pin=Slot 5-1
+Change Component Designator: OldDesignator=Raspberry NewDesignator=Rasp
+Change Component Designator: OldDesignator=VCC Teste NewDesignator=VCC Testes
+Added Component: Designator=Capacitor 3(RAD-0.3)
+Added Component: Designator=Capacitor 4(RAD-0.3)
+Added Component: Designator=Regulador Rasp(HDR1X3)
+Added Pin To Net: NetName=CAPACITOR 1 Pin=Capacitor 3-1
+Added Pin To Net: NetName=GND1 Pin=Capacitor 3-2
+Added Pin To Net: NetName=GND1 Pin=Capacitor 4-2
+Added Pin To Net: NetName=CAPACITOR 1 Pin=Regulador Rasp-1
+Added Pin To Net: NetName=GND1 Pin=Regulador Rasp-2
+Change Net Name : Old Net Name=NetAlimentacao Arduino_4 New Net Name=NetArduino_4
+Change Net Name : Old Net Name=NetBotão_1 New Net Name=NetBotao_1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Capacitor 4-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Rasp-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Regulador Rasp-3
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Slot 1-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Slot 2-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Slot 3-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Slot 4-1
+Added Pin To Net: NetName=CAPACITOR 4 Pin=Slot 5-1
+Added Net: Name=CAPACITOR 4
+Added Member To Class: ClassName=Potencia Member=Component Capacitor 3 Cap
+Added Member To Class: ClassName=Potencia Member=Component Capacitor 4 Cap
+Added Member To Class: ClassName=Potencia Member=Component Regulador Rasp Header 3
+Added Room: Name=Potencia

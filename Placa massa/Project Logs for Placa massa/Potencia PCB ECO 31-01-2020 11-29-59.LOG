@@ -1,0 +1,60 @@
+Change Component Footprint: Designator=Capacitor 3 Old Footprint=RAD-0.3 New Footprint=RB7.6-15
+Change Component Footprint: Designator=Capacitor 4 Old Footprint=RB5-10.5 New Footprint=RAD-0.3
+Added Component: Designator=Color Sensor(HDR1X5)
+Added Component: Designator=Driver(HDR1X8)
+Added Component: Designator=Gyro(HDR1X2)
+Added Component: Designator=LDR Dir(HDR1X2)
+Added Component: Designator=LDR Esq(HDR1X2)
+Added Component: Designator=US Front(HDR1X2)
+Added Component: Designator=US Lat(HDR1X2)
+Added Pin To Net: NetName=ANALOGD Pin=LDR Dir-1
+Added Net: Name=ANALOGD
+Added Pin To Net: NetName=ANALOGE Pin=LDR Esq-1
+Added Net: Name=ANALOGE
+Added Pin To Net: NetName=ECHOF Pin=US Front-2
+Added Net: Name=ECHOF
+Added Pin To Net: NetName=ECHOL Pin=US Lat-2
+Added Net: Name=ECHOL
+Added Pin To Net: NetName=LEDD Pin=LDR Dir-2
+Added Net: Name=LEDD
+Added Pin To Net: NetName=LEDE Pin=LDR Esq-2
+Added Net: Name=LEDE
+Added Pin To Net: NetName=M1EN Pin=Driver-1
+Added Net: Name=M1EN
+Added Pin To Net: NetName=M1INA Pin=Driver-2
+Added Net: Name=M1INA
+Added Pin To Net: NetName=M1INB Pin=Driver-3
+Added Net: Name=M1INB
+Added Pin To Net: NetName=M1PWM Pin=Arduino-4
+Added Pin To Net: NetName=M1PWM Pin=Driver-4
+Added Net: Name=M1PWM
+Added Pin To Net: NetName=M2EN Pin=Driver-5
+Added Net: Name=M2EN
+Added Pin To Net: NetName=M2INA Pin=Driver-6
+Added Net: Name=M2INA
+Added Pin To Net: NetName=M2INB Pin=Driver-7
+Added Net: Name=M2INB
+Added Pin To Net: NetName=M2PWM Pin=Arduino-5
+Added Pin To Net: NetName=M2PWM Pin=Driver-8
+Added Net: Name=M2PWM
+Added Pin To Net: NetName=OUT Pin=Color Sensor-5
+Added Net: Name=OUT
+Added Pin To Net: NetName=S0 Pin=Color Sensor-1
+Added Net: Name=S0
+Added Pin To Net: NetName=S1 Pin=Color Sensor-2
+Added Net: Name=S1
+Added Pin To Net: NetName=S2 Pin=Color Sensor-3
+Added Net: Name=S2
+Added Pin To Net: NetName=S3 Pin=Color Sensor-4
+Added Net: Name=S3
+Added Pin To Net: NetName=SCL Pin=Gyro-2
+Added Net: Name=SCL
+Added Pin To Net: NetName=SDA Pin=Gyro-1
+Added Net: Name=SDA
+Added Pin To Net: NetName=TRIGGERF Pin=US Front-1
+Added Net: Name=TRIGGERF
+Added Pin To Net: NetName=TRIGGERL Pin=US Lat-1
+Added Net: Name=TRIGGERL
+Added Class: Name=Logica
+Added Room: Name=Logica
+Added Room: Name=Potencia

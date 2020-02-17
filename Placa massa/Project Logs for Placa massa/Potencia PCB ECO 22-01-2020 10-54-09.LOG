@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=GND1 Pin=Motor Direito-1
+Removed Pin From Net: NetName=VDD 3,3V Pin=Motor Direito-2
+Removed Pin From Net: NetName=GND1 Pin=Motor Esquerdo-1
+Removed Pin From Net: NetName=VDD 3,3V Pin=Motor Esquerdo-2
+Added Pin To Net: NetName=VDD 3,3V Pin=Motor Direito-1
+Added Pin To Net: NetName=GND1 Pin=Motor Direito-2
+Added Pin To Net: NetName=VDD 3,3V Pin=Motor Esquerdo-1
+Added Pin To Net: NetName=GND1 Pin=Motor Esquerdo-2
+Added Room: Name=Potencia

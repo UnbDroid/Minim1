@@ -1,0 +1,19 @@
+Added Component: Designator=*(Driver_Pololu_2_Canais)
+Added Component: Designator=BT1(BAT-2)
+Added Component: Designator=BT?(BAT-2)
+Added Component: Designator=P1(HDR1X2)
+Added Component: Designator=PW?(Arduino)
+Added Component: Designator=R1(AXIAL-0.3)
+Added Pin To Net: NetName=GND Pin=BT1-2
+Added Pin To Net: NetName=GND Pin=R1-2
+Added Net: Name=GND
+Added Pin To Net: NetName=NetBT?_2 Pin=BT?-2
+Added Pin To Net: NetName=NetBT?_2 Pin=PW?-1
+Added Net: Name=NetBT?_2
+Added Pin To Net: NetName=NetP1_2 Pin=P1-2
+Added Pin To Net: NetName=NetP1_2 Pin=R1-1
+Added Net: Name=NetP1_2
+Added Class: Name=Potencia
+Added Class: Name=Teste
+Added Room: Name=Potencia
+Added Room: Name=Teste

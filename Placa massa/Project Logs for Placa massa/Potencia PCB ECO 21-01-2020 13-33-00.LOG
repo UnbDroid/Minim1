@@ -1,0 +1,5 @@
+Change Component DesignItemId : Designator=Regulador de Tensão Old DesignItemId=Volt Reg New DesignItemId=Header 3
+Change Component Footprint: Designator=Regulador de Tensão Old Footprint=D2PAK_M New Footprint=HDR1X3
+Change Component Comment : Designator=Regulador de Tensão Old Comment=Volt Reg New Comment=Header 3
+Added Pin To Net: NetName=GND1 Pin=Bateria 8V-2
+Added Pin To Net: NetName=GND1 Pin=Driver-5
