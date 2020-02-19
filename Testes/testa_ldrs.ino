@@ -1,8 +1,10 @@
-#define LED_dir 50
-#define LED_esq 51
-#define LDR_dir A2
-#define LDR_esq A6
+#define LED_dir 33
+#define LED_esq 34
+#define LDR_dir A3
+#define LDR_esq A5
 
+// ORDEM:
+//Vcc (vermelho), Digital (azul), analogico (amarelo), ground (preto)
 void setup(){
   Serial.begin(9600);
   pinMode(LDR_esq, INPUT);
