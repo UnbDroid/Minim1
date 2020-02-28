@@ -1,27 +1,27 @@
-#define MD 3
-#define MDINA 30
-#define MDINB 31
-#define MDEN 22
 
+#define M1PWM 5
+#define M1INA 34
+#define M1INB 36
+#define M1EN 38
 
-#define ME 4
-#define MEINA 46
-#define MEINB 47
-#define MEEN 52
+#define M2PWM 4
+#define M2INA 42
+#define M2INB 44
+#define M2EN 40
 
 #define POT_MIN_MOTOR 65
 #define POT_MAX_MOTOR 55
 #define POT_MED_MOTOR 50
 
-#define LED_dir 50
-#define LED_esq 51
+#define LED_dir 48
+#define LED_esq 46
 
 #define kp 0.35
 #define ki 0
 #define kd 0
 
-#define LDR_esq A1
-#define LDR_dir A0
+#define LDR_esq A6
+#define LDR_dir A5
 
 #define BRANCO 0
 #define PRETO 6
