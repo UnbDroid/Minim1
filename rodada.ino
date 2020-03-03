@@ -1,22 +1,26 @@
 #include "MPU9250.h"
 #include <NewPing.h>
 
-#define MD 4
-#define MDINA 30
-#define MDINB 31
-#define MDEN 22
+#define MD 5
+#define MDINA 34
+#define MDINB 36
+#define MDEN 38
 #define ENCODER_D 2
 
-#define ME 5
-#define MEINA 46
-#define MEINB 47
-#define MEEN 52
+#define ME 4
+#define MEINA 42
+#define MEINB 44
+#define MEEN 40
 #define ENCODER_E 3
 
-#define LED_dir 50
-#define LED_esq 51
-#define LDR_dir A2
+#define LED_dir 48
+#define LED_esq 46
+#define LED_dir_T 52
+#define LED_esq_T 50
+#define LDR_dir A5
 #define LDR_esq A6
+#define LDR_dir_T A3
+#define LDR_esq_T A4
 
 #define POT_MIN_MOTOR 40
 #define POT_MAX_MOTOR 45
@@ -25,23 +29,32 @@
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 115
-#define max_esq 180
+#define min_esq 112
+#define max_esq 170
 #define min_dir 104
-#define max_dir 160
+#define max_dir 150
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
-#define TRIGGER_PIN  34
-#define US_FRONT     37
-#define US_SIDE      36
+#define TRIGGER_PIN_Front  45
+#define TRIGGER_PIN_Dir  53
+#define TRIGGER_PIN_Esq  49
+#define US_FRONT     43
+#define US_ESQ      47
+#define US_DIR      51
 #define MAX_DISTANCE 200
 #define TIME_STEP 20
 #define Turn_Tension 3
-#define DIST_OBJ 10
+#define DIST_OBJ 15
 #define DIST_OBJ_LATERAL 20
 
-#define BUTTON 24
+#define S0 33
+#define S1 35
+#define S2 37
+#define S3 39
+#define Out 41
+
+#define BUTTON 23
 
 #define kp 0.00005
 #define ki 0
@@ -83,10 +96,6 @@ int leitura_dir = 0;
 int leitura_esq = 0;
 int leitura_front = 0;
 int leitura_lat = 0;
-
-int li_preto_esq = 0;
-int li_preto_dir = 0;
-int li_preto = 0;
 
 // An MPU9250 object with the MPU-9250 sensor on I2C bus 0 with address 0x68
 MPU9250 gyro(Wire,0x68);
