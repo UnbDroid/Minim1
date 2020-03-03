@@ -1,9 +1,3 @@
-// Sensor de luz antigo
-// Min: 78; Max: 186; Media: 132
-
-// Sensor de luz novo
-// Min: ; Max: ; Media:
-
 #include "MPU9250.h"
 #include <NewPing.h>
 
@@ -73,8 +67,9 @@
 #define ultra_f 4
 #define ultra_l 5
 
-NewPing usFront(TRIGGER_PIN, US_FRONT, MAX_DISTANCE);
-NewPing usSide(TRIGGER_PIN, US_SIDE, MAX_DISTANCE);
+NewPing usFront(TRIGGER_PIN_Front, US_FRONT, MAX_DISTANCE);
+NewPing usDir(TRIGGER_PIN_Dir, US_DIR, MAX_DISTANCE);
+NewPing usEsq(TRIGGER_PIN_Esq, US_ESQ, MAX_DISTANCE);
 
 // PID Motores
 int p = 0;

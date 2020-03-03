@@ -67,8 +67,9 @@
 #define ultra_f 4
 #define ultra_l 5
 
-NewPing usFront(TRIGGER_PIN, US_FRONT, MAX_DISTANCE);
-NewPing usSide(TRIGGER_PIN, US_SIDE, MAX_DISTANCE);
+NewPing usFront(TRIGGER_PIN_Front, US_FRONT, MAX_DISTANCE);
+NewPing usDir(TRIGGER_PIN_Dir, US_DIR, MAX_DISTANCE);
+NewPing usEsq(TRIGGER_PIN_Esq, US_ESQ, MAX_DISTANCE);
 
 // PID Motores
 int p = 0;
@@ -101,11 +102,6 @@ int leitura_lat = 0;
 MPU9250 gyro(Wire,0x68);
 int status;
 float degreeZ = 0;
-
-// An MPU9250 object with the MPU-9250 sensor on I2C bus 0 with address 0x68
-// MPU9250 gyro(Wire,0x68);
-// int status;
-// float degreeZ = 0;
 
 void movimento(int direcao);
 void trava_motores(int trava);
