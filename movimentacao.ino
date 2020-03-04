@@ -29,10 +29,10 @@
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 112
-#define max_esq 170
-#define min_dir 104
-#define max_dir 150
+#define min_esq 520
+#define max_esq 550
+#define min_dir 140
+#define max_dir 200
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -65,7 +65,8 @@
 #define frente 2
 #define tras 3
 #define ultra_f 4
-#define ultra_l 5
+#define ultra_d 5
+#define ultra_e 6
 
 NewPing usFront(TRIGGER_PIN_Front, US_FRONT, MAX_DISTANCE);
 NewPing usDir(TRIGGER_PIN_Dir, US_DIR, MAX_DISTANCE);
@@ -91,7 +92,8 @@ int iteracoes = 5;
 int vetor_leituras_esquerda[5];
 int vetor_leituras_direita[5];
 int vetor_leituras_us_front[5];
-int vetor_leituras_us_lat[5];
+int vetor_leituras_us_dir[5];
+int vetor_leituras_us_esq[5];
 int validacao = 0;
 int leitura_dir = 0;
 int leitura_esq = 0;
@@ -191,12 +193,12 @@ int media_vetor(int direcao){
     }
   }else if(direcao == 5){
     for(i=0; i<iteracoes; i++){
-      if(vetor_leituras_us_lat[i] < minimo){
-        minimo = vetor_leituras_us_lat[i];
+      if(vetor_leituras_us_dir[i] < minimo){
+        minimo = vetor_leituras_us_dir[i];
         pos_max = i;
       }
-      if(vetor_leituras_us_lat[i] > maximo){
-        maximo = vetor_leituras_us_lat[i];
+      if(vetor_leituras_us_dir[i] > maximo){
+        maximo = vetor_leituras_us_dir[i];
         pos_min = i;
       }
     }
@@ -205,23 +207,57 @@ int media_vetor(int direcao){
       pos_max++;
     }
 
-    vetor_leituras_us_lat[pos_min] = 0;
-    vetor_leituras_us_lat[pos_max] = 0;
+    vetor_leituras_us_dir[pos_min] = 0;
+    vetor_leituras_us_dir[pos_max] = 0;
 
     for(i=0; i<iteracoes; i++){
-      if(vetor_leituras_us_lat[i] != 0){
+      if(vetor_leituras_us_dir[i] != 0){
         valida = 0;
       }
     }
 
     if(valida == 1){
-      vetor_leituras_us_lat[2] = 300;
-      vetor_leituras_us_lat[3] = 300;
-      vetor_leituras_us_lat[4] = 300;
+      vetor_leituras_us_dir[2] = 300;
+      vetor_leituras_us_dir[3] = 300;
+      vetor_leituras_us_dir[4] = 300;
     }
 
     for(i=0; i<iteracoes; i++){
-      total += vetor_leituras_us_lat[i];
+      total += vetor_leituras_us_dir[i];
+    }
+  }else if(direcao == 6){
+    for(i=0; i<iteracoes; i++){
+      if(vetor_leituras_us_esq[i] < minimo){
+        minimo = vetor_leituras_us_esq[i];
+        pos_max = i;
+      }
+      if(vetor_leituras_us_esq[i] > maximo){
+        maximo = vetor_leituras_us_esq[i];
+        pos_min = i;
+      }
+    }
+
+    if(pos_min == pos_max){
+      pos_max++;
+    }
+
+    vetor_leituras_us_esq[pos_min] = 0;
+    vetor_leituras_us_esq[pos_max] = 0;
+
+    for(i=0; i<iteracoes; i++){
+      if(vetor_leituras_us_esq[i] != 0){
+        valida = 0;
+      }
+    }
+
+    if(valida == 1){
+      vetor_leituras_us_esq[2] = 300;
+      vetor_leituras_us_esq[3] = 300;
+      vetor_leituras_us_esq[4] = 300;
+    }
+
+    for(i=0; i<iteracoes; i++){
+      total += vetor_leituras_us_esq[i];
     }
   }
 
@@ -229,19 +265,20 @@ int media_vetor(int direcao){
 }
 
 void le_ultra(){
-  int f, l;
+  int f, e, d;
 
   while(contador < 5){
     f = usFront.ping_cm();
-    l = usSide.ping_cm();
-    vetor_leituras_us_lat[contador] = l;
+    d = usDir.ping_cm();
+    e = usEsq.ping_cm();
+    vetor_leituras_us_dir[contador] = d;
     vetor_leituras_us_front[contador] = f;
+    vetor_leituras_us_esq[contador] = e;
     contador++;
   }
   contador = 0;
 
 }
-
 
 void le_ldr(){
 
@@ -497,13 +534,6 @@ void gira(int angulo){
   trava_motores(1);
 }
 
-void tranco(){
-  movimento(frente);
-  analogWrite(ME, 40);
-  analogWrite(MD, 40);
-  delay(100);
-}
-
 void desvia(){
   gira(-90);
 
@@ -677,19 +707,20 @@ void setup() {
   pinMode(LED_dir, OUTPUT);
   pinMode(LED_esq, OUTPUT);
 
-  pinMode(MD , INPUT);
-  pinMode(MDINA, INPUT);
-  pinMode(MDINB, INPUT);
-  pinMode(MDEN , INPUT);
+  pinMode(MD , OUTPUT);
+  pinMode(MDINA, OUTPUT);
+  pinMode(MDINB, OUTPUT);
+  pinMode(MDEN , OUTPUT);
 
-  pinMode(ME , INPUT);
-  pinMode(MEINA, INPUT);
-  pinMode(MEINB, INPUT);
-  pinMode(MEEN , INPUT);
+  pinMode(ME , OUTPUT);
+  pinMode(MEINA, OUTPUT);
+  pinMode(MEINB, OUTPUT);
+  pinMode(MEEN , OUTPUT);
 
-  pinMode(BUTTON, INPUT);
+  // pinMode(BUTTON, INPUT);
 
-  while(digitalRead(BUTTON) == 0);
+  // while(digitalRead(BUTTON) == 0);
+
   Serial.begin(9600);
   delay(2000);
 
@@ -699,21 +730,30 @@ void setup() {
   digitalWrite(MDEN, HIGH);
   digitalWrite(MEEN, HIGH);
 
-  digitalWrite(MDINA, HIGH);
-  digitalWrite(MDINB, LOW);
-  digitalWrite(MEINA, LOW);
-  digitalWrite(MEINB, HIGH);
+  movimento(frente);
 
-  while(!Serial);
-  StartGyro();
-
-  analogWrite(ME, 45);
-  analogWrite(MD, 50);
-  delay(100);
+  // while(!Serial);
+  // StartGyro();
 }
 
 void loop() {
-  segue_linha();
+  movimento(frente);
+  analogWrite(ME, 40);
+  analogWrite(MD, 40);
+  delay(2000);
+
+  trava_motores(0);
+  delay(500);
+
+  movimento(tras);
+  analogWrite(ME, 40);
+  analogWrite(MD, 40);
+  delay(2000);
+
+  trava_motores(0);
+  delay(2000);
+
+  // segue_linha();
   // le_ultra();
   // leitura_front = media_vetor(4);
   // if(leitura_front < DIST_OBJ){
