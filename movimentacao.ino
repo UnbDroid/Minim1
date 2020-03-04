@@ -22,17 +22,17 @@
 #define LDR_dir_T A3
 #define LDR_esq_T A4
 
-#define POT_MIN_MOTOR 40
-#define POT_MAX_MOTOR 45
-#define POT_MED_MOTOR_ESQ 45
-#define POT_MED_MOTOR_DIR 48
+#define POT_MIN_MOTOR 30
+#define POT_MAX_MOTOR 35
+#define POT_MED_MOTOR_ESQ 33
+#define POT_MED_MOTOR_DIR 35
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 520
-#define max_esq 550
-#define min_dir 140
-#define max_dir 200
+#define min_esq 800
+#define max_esq 850
+#define min_dir 120
+#define max_dir 170
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -526,8 +526,8 @@ void gira(int angulo){
     if(now - last_update > 20){
       UpdateGyro();
       last_update = now;
-      analogWrite(MD, 45);
-      analogWrite(ME, 45);
+      analogWrite(MD, 35);
+      analogWrite(ME, 35);
     }
   }
 
@@ -717,9 +717,9 @@ void setup() {
   pinMode(MEINB, OUTPUT);
   pinMode(MEEN , OUTPUT);
 
-  // pinMode(BUTTON, INPUT);
+  pinMode(BUTTON, INPUT);
 
-  // while(digitalRead(BUTTON) == 0);
+  //while(digitalRead(BUTTON) == 0);
 
   Serial.begin(9600);
   delay(2000);
@@ -732,28 +732,32 @@ void setup() {
 
   movimento(frente);
 
+  Serial.println("Iniciando Giroscopio");
   // while(!Serial);
-  // StartGyro();
+  StartGyro();
+  Serial.println("Giroscopio Iniciado");
+
 }
 
 void loop() {
-  movimento(frente);
-  analogWrite(ME, 40);
-  analogWrite(MD, 40);
-  delay(2000);
+  // movimento(frente);
+  // analogWrite(ME, 40);
+  // analogWrite(MD, 40);
+  // delay(2000);
+  //
+  // trava_motores(0);
+  // delay(500);
+  //
+  // movimento(tras);
+  // analogWrite(ME, 40);
+  // analogWrite(MD, 40);
+  // delay(2000);
+  //
+  // trava_motores(0);
+  // delay(2000);
+  Serial.println("Seguiu linha");
+  segue_linha();
 
-  trava_motores(0);
-  delay(500);
-
-  movimento(tras);
-  analogWrite(ME, 40);
-  analogWrite(MD, 40);
-  delay(2000);
-
-  trava_motores(0);
-  delay(2000);
-
-  // segue_linha();
   // le_ultra();
   // leitura_front = media_vetor(4);
   // if(leitura_front < DIST_OBJ){
