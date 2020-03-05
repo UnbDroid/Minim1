@@ -106,6 +106,9 @@ float degreeZ = 0;
 // ORDEM:
 //Vcc (vermelho), Digital (azul), analogico (amarelo), ground (preto)
 
+// ldr e 850 - 970
+// ldr d 570 - 770
+
 void setup(){
   Serial.begin(9600);
   pinMode(LDR_esq, INPUT);
@@ -118,14 +121,6 @@ void setup(){
   digitalWrite(LED_esq, HIGH);
   digitalWrite(LED_dir, HIGH);
 
-  analogRead(LDR_esq);
-  analogRead(LDR_dir);
-
-  analogRead(LDR_esq);
-  analogRead(LDR_dir);
-
-  analogRead(LDR_esq);
-  analogRead(LDR_dir);
 }
 
 void loop(){

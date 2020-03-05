@@ -112,6 +112,7 @@ void UpdateGyro() {
 // Inicializa o giroscopio
 void StartGyro() {
   status = gyro.begin();
+  Serial.print("2");
   if (status < 0)
     Serial.println("IMU initialization unsuccessful");
 }
@@ -194,7 +195,8 @@ void gira_graus(int angulo){
 
   trava_motores(1);
 }
-
+unsigned long now,last_update = 0;
+int angulo_atual;
 void setup() {
   pinMode(MD , INPUT);
   pinMode(MDINA, INPUT);
@@ -209,15 +211,19 @@ void setup() {
   digitalWrite(MDEN, HIGH);
   digitalWrite(MEEN, HIGH);
 
-  delay(5000);
+  delay(300);
   Serial.begin(9600);
   while(!Serial);
   StartGyro();
-  gira_graus(90);
-  gira_graus(-90);
-  gira_graus(-90);
+
 
 }
 
 void loop() {
+  now = millis();
+  UpdateGyro();
+      Serial.print("Z = ");
+      Serial.println(degreeZ);
+  last_update = now;
+  delay(300);
 }

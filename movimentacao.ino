@@ -22,17 +22,17 @@
 #define LDR_dir_T A3
 #define LDR_esq_T A4
 
-#define POT_MIN_MOTOR 30
-#define POT_MAX_MOTOR 35
-#define POT_MED_MOTOR_ESQ 33
-#define POT_MED_MOTOR_DIR 35
+#define POT_MIN_MOTOR 40
+#define POT_MAX_MOTOR 45
+#define POT_MED_MOTOR_ESQ 45
+#define POT_MED_MOTOR_DIR 45
 
 #define BRANCO 0
 #define PRETO 6
-#define min_esq 800
-#define max_esq 850
-#define min_dir 120
-#define max_dir 170
+#define min_esq 850
+#define max_esq 920
+#define min_dir 570
+#define max_dir 700
 #define MED_ESQ (min_esq+max_esq)/2
 #define MED_DIR (min_dir+max_dir)/2
 
@@ -411,6 +411,11 @@ void segue_linha(){
   leitura_esq = media_vetor(1);
   leitura_dir = media_vetor(0);
 
+  Serial.print("LDR ESQUERDA : ");
+  Serial.print(leitura_esq);
+  Serial.print(" || LDR DIREITA : ");
+  Serial.println(leitura_dir);
+
 
   // Media do esquerdo: 147
   // Media do direito: 180
@@ -460,7 +465,6 @@ void segue_linha(){
       gira(5);
     }
   }
-
 
 }
 
@@ -733,29 +737,13 @@ void setup() {
   movimento(frente);
 
   Serial.println("Iniciando Giroscopio");
-  // while(!Serial);
+  while(!Serial);
   StartGyro();
   Serial.println("Giroscopio Iniciado");
 
 }
 
 void loop() {
-  // movimento(frente);
-  // analogWrite(ME, 40);
-  // analogWrite(MD, 40);
-  // delay(2000);
-  //
-  // trava_motores(0);
-  // delay(500);
-  //
-  // movimento(tras);
-  // analogWrite(ME, 40);
-  // analogWrite(MD, 40);
-  // delay(2000);
-  //
-  // trava_motores(0);
-  // delay(2000);
-  Serial.println("Seguiu linha");
   segue_linha();
 
   // le_ultra();
