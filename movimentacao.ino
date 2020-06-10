@@ -105,7 +105,9 @@ MPU9250 gyro(Wire,0x68);
 int status;
 float degreeZ = 0;
 
-
+// Recebe um argumento indicando qual sensor será utilizado para fazer a média. Possibilidades: US(esquerda, frente e direita) e LDR(esquerda e direita).
+// Recebe um vetor contendo 'iterações' leituras do sensor, exclui a menor e a maior, e faz a média aritmética de 'iterações - 2' leituras.
+// Retorna um valor inteiro que é a média.
 int media_vetor(int direcao){
   int valida = 1;
   int i=0, pos_min, pos_max;
@@ -264,6 +266,8 @@ int media_vetor(int direcao){
   return total/(iteracoes-2);
 }
 
+
+// Obtem 5 leituras para cada ultrassom (em centimetros) e as armazenas em seus devidos vetores
 void le_ultra(){
   int f, e, d;
 
@@ -280,6 +284,7 @@ void le_ultra(){
 
 }
 
+// Obtem 5 leituras para cada LDR e as armazenas em seus devidos vetores
 void le_ldr(){
 
   vetor_leituras_esquerda[contador] = analogRead(LDR_esq);
@@ -299,6 +304,7 @@ void le_ldr(){
   }
 }
 
+// Atualiza a media da leitura atual de cada ldr e indica se ele está lendo preto ou branco baseado em médias de valores para essas cores.
 void atualiza_ldr(){
     le_ldr();
 
@@ -321,6 +327,8 @@ void atualiza_ldr(){
   }
 }
 
+// Gira para alguma lado para alinhar com a linha preta do chao.
+// Caso a linha esteja sendo vista pelo LDR direito, gira no sentido horário e vice versa.
 void alinhar(){
     digitalWrite(MEINA, HIGH);
     digitalWrite(MEINB, LOW);
@@ -348,11 +356,13 @@ void alinhar(){
 
 }
 
+// Atualiza o valor lido pelo giroscopio.
 void UpdateGyro() {
   gyro.readSensor();
   degreeZ += (gyro.getGyroZ_rads() * TIME_STEP * 180) / (1000 * PI);
 }
 
+// Liga ou desliga os pinos do driver de acordo com a direção que se deseja ir.
 void movimento(int direcao){
   switch(direcao){
     case direita:
@@ -382,6 +392,7 @@ void movimento(int direcao){
   }
 }
 
+// Trava os motores ou os deixa em estado "morto".
 void trava_motores(int trava){
   if (trava){
     digitalWrite(MEINA, HIGH);
@@ -398,13 +409,16 @@ void trava_motores(int trava){
   }
 }
 
-// Gyro setup function
+// Inicializa o giroscópio.
 void StartGyro() {
   status = gyro.begin();
   if (status < 0)
     Serial.println("IMU initialization unsuccessful");
 }
 
+// Decide em qual direção deve-se girar as rodas baseado nas leituras dos ldr's
+// Assim, se ambos forem brancos, o robo anda reto, e se forem um de cada cor, ele deve girar para que fiquem ambos branco
+// Ainda, se forem ambos pretos, ele se alinha na linha para continuar a seguir a linha
 void segue_linha(){
   le_ldr();
 
@@ -468,6 +482,9 @@ void segue_linha(){
 
 }
 
+// Ultiza o metódo PID de controle para fazer o robo andar reto
+// As leituras de feedback são referente aos encoders dos motores da frente
+// Assim, de maneira simplificada, analisa a diferença entre os encoders e tenta compensar elevando ou abaixando a tensão enviada a um dos motores
 void anda_reto(){
 
   movimento(frente);
@@ -504,14 +521,19 @@ void anda_reto(){
   erro_ant = erro_atual;
 }
 
+// Acresce o valor de leitura do encoder direito (interrupt)
 void acresce_encoder_d(){
   encoder_d++;
 }
 
+// Acresce o valor de leitura do encoder esquerdo (interrupt)
 void acresce_encoder_e(){
   encoder_e++;
 }
 
+// Recebe como parametro um angulo em graus, podendo ser positivo ou negativo
+// Rotaciona esse valor, sendo positivo o sentido anti-horario e negativo horário
+// Para isso utiliza-se o giroscopio como parâmetro
 void gira(int angulo){
   unsigned long now,last_update = 0;
   int angulo_atual;
@@ -538,6 +560,8 @@ void gira(int angulo){
   trava_motores(1);
 }
 
+// Desvia de um obstáculo enquanto estiver seguindo linha
+// A parte nao comentada é o desvio pela direita, e a parte comentada é o desvio pela esquerda
 void desvia(){
   gira(-90);
 
@@ -705,6 +729,9 @@ void desvia(){
   // Serial.println("Voltei a seguir linha");
 }
 
+// Inicializa todos os pinos que foram usados como imput ou output.
+// Liga todos os LEDs e define o movimento incial como sendo para frente.
+// Liga o giroscópio e trava o código, até que o botao de inicio seja pressionado.
 void setup() {
   pinMode(LDR_dir, INPUT);
   pinMode(LDR_esq, INPUT);
@@ -723,7 +750,7 @@ void setup() {
 
   pinMode(BUTTON, INPUT);
 
-  //while(digitalRead(BUTTON) == 0);
+  while(digitalRead(BUTTON) == 0);
 
   Serial.begin(9600);
   delay(2000);
@@ -743,12 +770,15 @@ void setup() {
 
 }
 
+
+// Segue linha enquanto verifica se há algum obstáculo
+// Se houver algum, entra na função desvia e volta a seguir linha logo em seguida.
 void loop() {
   segue_linha();
 
-  // le_ultra();
-  // leitura_front = media_vetor(4);
-  // if(leitura_front < DIST_OBJ){
-  //   desvia();
-  // }
+  le_ultra();
+  leitura_front = media_vetor(4);
+  if(leitura_front < DIST_OBJ){
+    desvia();
+  }
 }
